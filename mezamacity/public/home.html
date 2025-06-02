@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ホーム</title>
+    <link rel="stylesheet" href="home.css">
+
+</head>
+<body>
+
+  <header>
+    <h1>マイホーム画面</h1>
+  </header>
+
+  <nav>
+    <a href="#">ダッシュボード</a>
+    <a href="#">プロフィール</a>
+    <a href="#">設定</a>
+    <button class="logout-btn" onclick="logout()">ログアウト</button>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h3>ようこそ！</h3>
+      <p>これはあなたのホーム画面です。ここから各種機能へアクセスできます。</p>
+    </div>
+    <div class="card">
+      <h3>お知らせ</h3>
+      <ul>
+        <li>2025/06/02 - 新機能が追加されました。</li>
+        <li>2025/05/25 - メンテナンスが完了しました。</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      // 実際にはログイン状態をクリアしてログインページに戻る処理
+      alert("ログアウトしました");
+      window.location.href = "login.html"; // ←ログインページに戻す（ファイル名に合わせて変更）
+    }
+  </script>
+</body>
+</html>
