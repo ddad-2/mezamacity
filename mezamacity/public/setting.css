@@ -12,6 +12,19 @@ body {
   align-items: center;
 }
 
+.login-container {
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid #00f0ff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 300px;
+  box-shadow: 0 0 15px #00f0ff;
+}
+.settings-panel div{
+  margin-bottom: 20px;
+  color: #00f0ff;
+}
+
 .setting-group {
   margin-bottom: 20px;
   text-align: left;
