@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>目覚まシティ</title>
+  <link rel="stylesheet" href="../CSS/home.css" />
+</head>
+<body>
+
+  <div class="clock" aria-label="アナログ時計" role="img" aria-live="polite" id="clock">
+    <div class="hand hour" id="hour-hand"></div>
+    <div class="hand minute" id="minute-hand"></div>
+    <div class="hand second" id="second-hand"></div>
+    <div class="center-dot"></div>
+    <!-- 数字はここにJSで配置 -->
+  </div>
+
+  <div class="digital-clock" id="digital-clock" aria-label="デジタル時計" role="status"></div>
+
+  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
+    <a href="#" class="nav-item active" aria-current="page">
+      <div class="icon">🏠</div>
+      <div class="label">ホーム</div>
+    </a>
+    <a href="geme.html" class="nav-item">
+      <div class="icon">📊</div>
+      <div class="label">育成画面</div>
+    </a>
+    <a href="alarm.html" class="nav-item">
+      <div class="icon">⏰</div>
+      <div class="label">目覚まし設定</div>
+    </a>
+    <a href="settings.html" class="nav-item">
+      <div class="icon">⚙️</div>
+      <div class="label">設定</div>
+    </a>
+    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
+      <div class="icon">🔓</div>
+      <div class="label">ログアウト</div>
+    </button>
+  </nav>
+
+  
+  <script src="../SCRIPT/home.js"></script>
+
+
+</body>
+</html>

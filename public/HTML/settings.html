@@ -1,0 +1,51 @@
+　<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>目覚ましティ - 設定</title>
+  <link rel="stylesheet" href="../CSS/setting.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1 class="game-title">設定</h1>
+    <div class="settings-panel">
+
+      <form>
+        <div class="setting-group">
+          <label for="theme">テーマ</label>
+          <select id="theme" name="theme">
+            <option value="dark">ライトモード</option>
+            <option value="light">ダークモード</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="fontsize">文字サイズ</label>
+          <select id="fontsize" name="fontsize">
+            <option value="small">小</option>
+            <option value="medium">中</option>
+            <option value="large">大</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="language">言語</label>
+          <select id="language" name="language">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="setting-group account-actions">
+          <button type="button" class="danger-button">保存する</button>
+        </div>
+
+        <button type="submit" class="save">アカウント削除</button>
+        <!-- formの外に出すと配置が自由になります -->
+        <a href="home.html" class="home-button">←ホームに戻る</a>
+
+    </div>
+  </div>
+</body>
+</html>

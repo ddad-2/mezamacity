@@ -1,0 +1,152 @@
+body {
+  margin: 0;
+  padding-bottom: 70px;
+  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(#1a1a2e, #16213e);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.clock {
+  position: relative;
+  width: 350px;   /* HTMLの時計サイズに合わせる */
+  height: 350px;
+  border: 8px solid #ffcc00;
+  border-radius: 50%;
+  background: #1a1a2e;
+  margin: 2rem auto;
+  box-sizing: border-box;
+}
+
+/* 時計の中心のドット */
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: #ffcc00;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* 時計の針 */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  background: #ffcc00;
+  transform-origin: bottom center;
+  transform: translateX(-50%);
+  
+  border-radius: 6px;
+  z-index: 5;
+  box-shadow: 0 0 3px #ffcc00;
+}
+/*transition: all 0.05s ease-in-out;*/
+
+.hour {
+  width: 12px;
+  height: 90px;
+  background: #ffcc00;
+  z-index: 4;
+  border-radius: 8px;
+}
+
+.minute {
+  width: 8px;
+  height: 130px;
+  background: #ffcc00;
+  z-index: 6;
+  border-radius: 6px;
+}
+
+.second {
+  width: 3px;
+  height: 160px;
+  background: #ff4444;
+  box-shadow: 0 0 6px #ff4444;
+  z-index: 7;
+  border-radius: 3px;
+}
+
+/* 時計数字（動的配置のため位置指定なし） */
+.number {
+  position: absolute;
+  color: #ffcc00;
+  font-size: 22px;
+  font-weight: bold;
+  user-select: none;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  text-shadow: 0 0 5px #ffcc00;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* 下部ナビゲーション */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #222;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.8);
+  z-index: 1000;
+}
+
+.nav-item {
+  flex-grow: 1;
+  text-align: center;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+  border: none;
+  background: none;
+}
+
+.nav-item .icon {
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+  color: #ffcc00;
+}
+
+.nav-item.active {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+/* デジタル時計のスタイル */
+.digital-clock {
+  width: 100%;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Press Start 2P', cursive;
+  color: #ffcc00;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px #ffcc00, 0 0 2px #fff;
+}

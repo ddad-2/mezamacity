@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2D街づくりゲーム</title>
+    <script src="../SCRIPT/geme.js"></script>
+    <style>
+      #grid {
+        display: grid;
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(5, 50px);
+        gap: 2px;
+        justify-content: center;
+        margin: 0 auto;
+      }
+      .tile {
+        width: 50px;
+        height: 50px;
+        background-color: #4caf50;
+        background-size: cover;
+        border: 1px solid #333;
+        cursor: pointer;
+        transition: transform 0.1s;
+      }
+      .tile:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stats">
+      💰 お金: <span id="money">1000</span> | 🏘️ 人口:
+      <span id="population">0</span>
+    </div>
+
+    <div id="grid"></div>
+
+    <script>
+      const grid = document.getElementById("grid");
+      const moneyDisplay = document.getElementById("money");
+      const populationDisplay = document.getElementById("population");
+
+      let money = 1000;
+      let population = 0;
+
+      const buildingCost = {
+        house: 100,
+        factory: 200,
+      };
+
+      const populationIncrease = {
+        house: 10,
+        factory: 0,
+      };
+
+      // 初期化 - タイル作成
+      const rows = 5;
+      const cols = 5;
+      const rowLabels = ["A", "B", "C", "D", "E"];
+      for (let i = 0; i < rows * cols; i++) {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        tile.id = `${rowLabels[row]}-${col + 1}`; // 例: A-1, A-2 ...
+        tile.addEventListener("click", () => build(tile));
+        grid.appendChild(tile);
+      }
+
+      function build(tile) {
+        if (
+          tile.classList.contains("building-house") ||
+          tile.classList.contains("building-factory") ||
+          tile.classList.contains("building-gov")
+        ) {
+          return; // 既に建物がある
+        }
+
+        // 建物タイプを選択（例：ランダム or 固定で役所/government_office）
+        let buildingType;
+        let imgSrc;
+        if (Math.random() < 0.33) {
+          buildingType = "gov";
+          imgSrc = "../IMAGES/government_office.png";
+        } else if (Math.random() < 0.5) {
+          buildingType = "house";
+          imgSrc = "https://i.imgur.com/2RHRvYW.png";
+        } else {
+          buildingType = "factory";
+          imgSrc = "https://i.imgur.com/Q8Wqg6m.png";
+        }
+        const cost = buildingCost[buildingType] || 0;
+        const popInc = populationIncrease[buildingType] || 0;
+
+        if (money >= cost) {
+          tile.classList.add(`building-${buildingType}`);
+          // 画像を追加
+          const img = document.createElement("img");
+          img.src = imgSrc;
+          img.alt = buildingType;
+          img.style.width = "100%";
+          img.style.height = "100%";
+          img.style.objectFit = "contain";
+          tile.appendChild(img);
+          money -= cost;
+          population += popInc;
+          updateStats();
+        } else {
+          alert("お金が足りません！");
+        }
+      }
+
+      function updateStats() {
+        moneyDisplay.textContent = money;
+        populationDisplay.textContent = population;
+      }
+    </script>
+  </body>
+</html>
