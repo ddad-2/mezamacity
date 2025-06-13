@@ -11,8 +11,7 @@
     <h1 class="game-title">目覚ましティ</h1>
     <div class="login-panel">
       <h2>新規登録</h2>
-      <!-- nodeに送る -->
-      <form action="http://localhot:300/register" method="POST">
+      <form id="register-form" method="POST">
         <label for="username">ユーザー名</label>
         <input type="text" id="username" name="username" required />
 
@@ -27,11 +26,14 @@
 
         <button type="submit">登録する</button>
       </form>
+      <!-- error message -->
+       <div id="msg-box" class="msg-box"></div>
       <div class="signup-section">
         <p>アカウントをお持ちの方は</p>
         <a href="login.html" class="signup-button">ログインはこちら</a>
       </div>
     </div>
   </div>
+  <script src="../SCRIPT/register-client.js"></script>
 </body>
 </html>

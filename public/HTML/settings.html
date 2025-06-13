@@ -1,4 +1,4 @@
-　<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +10,6 @@
   <div class="login-container">
     <h1 class="game-title">設定</h1>
     <div class="settings-panel">
-
       <form>
         <div class="setting-group">
           <label for="theme">テーマ</label>
@@ -36,16 +35,35 @@
             <option value="en">English</option>
           </select>
         </div>
+      
 
-        <div class="setting-group account-actions">
-          <button type="button" class="danger-button">保存する</button>
-        </div>
-
-        <button type="submit" class="save">アカウント削除</button>
-        <!-- formの外に出すと配置が自由になります -->
-        <a href="home.html" class="home-button">←ホームに戻る</a>
-
+      <div class="setting-group account-actions">
+        <button type="button" class="primary-button">保存する</button>
+        <button type="button" class="danger-button" id="deleteBtn">アカウント削除</button>
+      </div>
+      </form>
+      <a href="home.html" class="home-button">←ホームに戻る</a>
     </div>
   </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p>本当に削除しますか？</p>
+      <button id="confirmDelete" class="yes-button">はい</button>
+      <button id="cancelDelete" class="no-button">キャンセル</button>
+    </div>
+  </div>
+
+  <!-- 保存確認モーダル -->
+<div id="save-modal" class="modal hidden">
+  <div class="modal-content">
+    <p>設定を保存しますか？</p>
+    <button id="confirmSave" class="save-yes-button">はい</button>
+    <button id="cancelSave" class="save-no-button">キャンセル</button>
+  </div>
+</div>
+
+
+  <script src="../SCRIPT/setteig.js"></script>
 </body>
 </html>

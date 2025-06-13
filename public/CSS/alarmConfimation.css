@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(#1a1a2e, #16213e);
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+}
+
+.list-container {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.alarm-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00f0ff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px #00f0ff33;
+}
+
+.alarm-info h2 {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+}
+
+.alarm-info p {
+  margin: 4px 0;
+  font-size: 0.8rem;
+}
+
+.alarm-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn,
+.add-btn {
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.edit-btn {
+  background-color: #00ff88;
+  color: #000;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color: #000;
+}
+
+.back-button-wrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.add-btn {
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  background-color: #00ff88;
+  color: #000;
+}
+.add-btn-wrappe {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+

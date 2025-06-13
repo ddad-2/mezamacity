@@ -42,7 +42,7 @@ body
 .alarm-details label {
   display: block;
   margin-bottom: 10px;
-  font-size: 0.7rem;
+  font-size: 1.4rem;
 }
 
 .repeat-days {
@@ -92,4 +92,37 @@ body
   border-radius: 8px;
   cursor: pointer;
   font-family: 'Press Start 2P', cursive;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.add-alarm-button,
+.home {
+  width: 260px;
+  padding: 16px;
+  font-size: 1rem;
+}
+.alarm-details input[type="checkbox"] {
+  transform: scale(1.5); /* チェックボックスを大きく */
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.alarm-details select,
+.alarm-details input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  margin-top: 6px;
+  box-sizing: border-box;
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2D街づくりゲーム</title>
+    <link rel="stylesheet" href="../CSS/game.css">
+    <script src="../SCRIPT/game.js"></script>
+  </head>
+  <body>
+    <header style="display: flex; align-items: center; justify-content: space-between; background: #4a90e2; color: #fff; padding: 12px 24px;">
+      <a href="home.html"
+        class="home-btn"
+        style="
+          color: #fff;
+          text-decoration: none;
+          font-size: 0.9em;
+        "
+      >
+        ← ホームに戻る
+      </a>
+      <h1 style="margin: 0; font-size: 1.2em; flex: 1; text-align: center;">育成画面</h1>
+      <span style="width: 90px;"></span> <!-- 右側のスペース調整用 -->
+    </header>
+    <div id="stats">
+      💰 お金: <span id="money">1000</span> | 🏘️ 人口:
+      <span id="population">0</span>
+    </div>
+
+    <div id="grid"></div>
+
+    <!-- 建物選択ボタン -->
+    <div id="building-buttons" style="display: flex; justify-content: center; gap: 32px; margin: 32px 0;">
+      <button id="btn-house" style="font-size: 1.2em; padding: 18px 36px; border-radius: 8px; border: none; background: #f5a623; color: #fff; cursor: pointer;">家</button>
+      <button id="btn-factory" style="font-size: 1.2em; padding: 18px 36px; border-radius: 8px; border: none; background: #7ed321; color: #fff; cursor: pointer;">工場</button>
+      <button id="btn-gov" style="font-size: 1.2em; padding: 18px 36px; border-radius: 8px; border: none; background: #4a90e2; color: #fff; cursor: pointer;">役所</button>
+    </div>
+  </body>
+</html>

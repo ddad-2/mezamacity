@@ -13,7 +13,8 @@
     <h1 class="game-title">目覚まシティ</h1>
     <div class="login-panel">
       <h2>ログイン</h2>
-      <form action="/login" method="POST">
+      <!-- nodeに送る -->
+      <form id="login-form" method="POST">
         <label for="email">メールアドレス</label>
         <input type="text" id="email" name="email" required>
 
@@ -22,11 +23,13 @@
 
         <button type="submit">ログイン</button>
          <div class="signup-section">
+        <div id="msg-box" class="msg-box"></div>
         <p>初めての方はこちら</p>
         <a href="register.html" class="signup-button">新規登録</a>
       </div>
       </form>
     </div>
   </div>
+  <script src="../SCRIPT/login-client.js"></script>
 </body>
 </html>
