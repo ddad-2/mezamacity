@@ -1,0 +1,41 @@
+/* alarmRing.css */
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.alarm-ring-container {
+  text-align: center;
+}
+
+.alarm-time {
+  font-size: 3rem;
+  margin: 20px 0;
+}
+
+.stop-btn,
+.snooze-btn {
+  font-size: 1.2rem;
+  padding: 15px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.stop-btn {
+  background-color: #ff3b3b;
+  color: white;
+}
+
+.snooze-btn {
+  background-color: #ffa500;
+  color: white;
+}

@@ -18,7 +18,7 @@ body {
 
 .game-title {
   font-size: 2rem;
-  color: #00f0ff;
+  color: #fff;
   margin-bottom: 20px;
   text-shadow: 2px 2px #000;
 }
@@ -34,7 +34,7 @@ body {
 
 .login-panel h2 {
   margin-bottom: 20px;
-  color: #00f0ff;
+  color: #fff;
 }
 
 form {

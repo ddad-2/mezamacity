@@ -1,0 +1,24 @@
+<!-- alarmRing.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アラームが鳴っています</title>
+  <link rel="stylesheet" href="../CSS/alarmRing.css" />
+</head>
+<body>
+  <div class="alarm-ring-container">
+    <h1>⏰ アラーム中！</h1>
+    <div class="alarm-time" id="current-time">07:00</div>
+
+    <button class="stop-btn" onclick="stopAlarm()">アラームを止める</button>
+    <button class="snooze-btn" onclick="snoozeAlarm()">スヌーズ（5分）</button>
+
+    <!-- 修正：音声ファイルのパス確認 -->
+    <audio id="alarm-sound" src="../SOUNDS/alarm.mp3" loop autoplay></audio>
+  </div>
+
+  <script src="../SCRIPT/alarmRing.js"></script>
+</body>
+</html>

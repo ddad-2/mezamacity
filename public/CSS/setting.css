@@ -6,9 +6,11 @@ body {
   color: #fff;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* ← 縦方向に並べる */
+  align-items: center;     /* ← 横中央揃え */
 }
+
+
 
 .login-container {
   position: relative;
