@@ -1,17 +1,39 @@
+/* リセット（すべての余白とボックスサイズを統一） */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ヘッダー本体の設定 */
 header {
   width: 100%;
-  height: 10%;
-  min-height: 10%;
-  background: #4a90e2;
+  padding: 15px 20px;
+  background: linear-gradient(to right, #4a90e2, #6a5acd);
   color: #fff;
-  font-size: 2em;
+  font-size: 1.2em;
   display: flex;
   align-items: center;
-  justify-content: center;
-  letter-spacing: 0.1em;
-  margin-bottom: 5%;
-  box-sizing: border-box;
-  position: relative;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+  position: sticky;
   top: 0;
   left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ヘッダー内要素の余白を除去 */
+header h1,
+header a,
+header span {
+  margin: 0;
+  padding: 0;
+}
+
+/* ホームリンク */
+.home-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9em;
 }

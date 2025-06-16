@@ -1,20 +1,36 @@
-html, body {
-  height: 100%;
+/* ベース設定 */
+body,
+html {
   margin: 0;
   padding: 0;
-}
-body {
-  min-height: 100vh;
+  font-family: sans-serif;
   background: #222;
   color: #fff;
-  font-family: sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* メインコンテンツを中央寄せ */
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ステータス表示 */
 #stats {
-  margin-bottom: 10px;
+  margin: 0;
+  padding: 10px 0;
   font-size: 18px;
   text-align: center;
 }
+
+/* グリッド表示 */
 #grid {
   display: grid;
   grid-template-columns: repeat(5, 50px);
@@ -23,6 +39,8 @@ body {
   justify-content: center;
   margin: 0 auto;
 }
+
+/* 各マスの見た目 */
 .tile {
   width: 50px;
   height: 50px;
@@ -35,7 +53,29 @@ body {
 .tile:hover {
   transform: scale(1.1);
 }
+
+/* 建物選択ボタンエリア */
+#building-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px 0;
+}
+
+#building-buttons > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ボタン本体 */
 .building-btn {
+  font-size: 1.2em;
+  padding: 18px 36px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
   opacity: 0.7;
   outline: none;
   box-shadow: none;
@@ -48,3 +88,9 @@ body {
   z-index: 1;
 }
 
+/* 建物コスト表示 */
+#building-buttons .cost {
+  color: #fff;
+  font-size: 0.95em;
+  margin-top: 4px;
+}

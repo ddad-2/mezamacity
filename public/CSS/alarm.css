@@ -1,38 +1,65 @@
-body
-{
+
+
+/* alarm.css */
+body {
   margin: 0;
   padding: 0;
   background: linear-gradient(#1a1a2e, #16213e);
   font-family: 'Press Start 2P', cursive;
   color: #fff;
-  height: 100vh;
+  /* height: 100vh; を削除。stickyヘッダーがある場合、コンテンツのスクロールを妨げる可能性があります */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* 要素を縦に並べる */
+  /* justify-content: center; と align-items: center; は削除、
+     代わりに .main-content で中央寄せを行います */
 }
+
+/* 新しいメインコンテンツラッパー */
+.main-content {
+  flex-grow: 1; /* 残りのスペースを埋める */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 垂直方向の中央揃え */
+  align-items: center; /* 水平方向の中央揃え */
+  padding: 20px; /* 全体のパディング */
+  padding-top: 100px; /* ヘッダーの高さに合わせて上部にパディングを追加 */
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px; /* コンテンツの最大幅を制限 */
+  margin: 0 auto; /* 中央寄せ */
+}
+
+.game-title {
+  text-align: center;
+  margin-bottom: 30px; /* タイトルの下の余白 */
+  font-size: 1.8rem;
+}
+
 .alarm-panel {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%; /* 親要素の幅いっぱいに広げる */
 }
 
 .alarm-item {
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 15px;
+  padding: 20px; /* パディングを少し増やす */
   border-radius: 10px;
   border: 2px solid #00f0ff;
   box-shadow: 0 0 10px #00f0ff33;
 }
 
-.alarm-time input[type="time"] {
-  width: 80%;
-  font-size: 1.2rem;
+.alarm-time input[type='time'] {
+  width: calc(100% - 20px); /* パディングを考慮して幅を調整 */
+  font-size: 1.5rem; /* フォントサイズを大きく */
   padding: 10px;
   border-radius: 8px;
   background-color: #686868;
   color: #fff;
   border: none;
   font-family: 'Press Start 2P', cursive;
+  margin-bottom: 15px; /* 下の要素との余白 */
 }
 
 .alarm-details {
@@ -40,82 +67,89 @@ body
 }
 
 .alarm-details label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 1.4rem;
+  display: flex; /* flexboxを使って内部要素を配置 */
+  align-items: center; /* 垂直方向の中央揃え */
+  margin-bottom: 15px; /* 下の余白を調整 */
+  font-size: 1rem; /* フォントサイズを調整 */
 }
 
 .repeat-days {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 10px;
+  gap: 10px; /* ギャップを調整 */
+  margin-bottom: 20px; /* 下の余白を調整 */
 }
 
 .repeat-days label {
   background-color: #333;
-  padding: 10px 8px;
-  border-radius: 500px;
+  padding: 8px 12px; /* パディングを調整 */
+  border-radius: 20px; /* 角丸を調整 */
   cursor: pointer;
-  font-size: 1rem;
-}
-
-.repeat-days input {
-  margin-right: 10px;
-}
-
-.alarm-toggle {
-  margin-top: 10px;
-}
-
-.add-alarm-button {
-  padding: 12px;
-  font-size: 0.9rem;
-  background-color: #00ff88;
-  border: none;
-  color: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Press Start 2P', cursive;
-}
-
-.add-alarm-button:hover {
-  background-color: #00cc66;
-}
-
-.home{
-   padding: 12px;
-  font-size: 0.9rem;
-  background-color: #00ff88;
-  border: none;
-  color: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Press Start 2P', cursive;
-}
-
-.button-group {
+  font-size: 0.9rem; /* フォントサイズを調整 */
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
+  align-items: center;
+  white-space: nowrap; /* テキストが改行されないように */
 }
 
-.add-alarm-button,
-.home {
-  width: 260px;
-  padding: 16px;
-  font-size: 1rem;
+.repeat-days input[type='checkbox'] {
+  margin-right: 8px; /* チェックボックスの右側の余白 */
+  transform: scale(1.2); /* チェックボックスのサイズを調整 */
+  -webkit-appearance: none; /* デフォルトのスタイルを無効化 */
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px; /* カスタムチェックボックスの幅 */
+  height: 18px; /* カスタムチェックボックスの高さ */
+  border: 2px solid #00f0ff; /* チェックボックスの枠線 */
+  background-color: #1a1a2e; /* チェックボックスの背景色 */
+  border-radius: 4px; /* チェックボックスの角丸 */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.alarm-details input[type="checkbox"] {
-  transform: scale(1.5); /* チェックボックスを大きく */
+
+.repeat-days input[type='checkbox']:checked {
+  background-color: #00ff88; /* チェックされた時の背景色 */
+  border-color: #00ff88; /* チェックされた時の枠線の色 */
+}
+
+.repeat-days input[type='checkbox']:checked::after {
+  content: '✔'; /* チェックマーク */
+  color: #1a1a2e; /* チェックマークの色 */
+  font-size: 14px;
+}
+
+.alarm-details input[type='checkbox'].alarm-vibe {
+  transform: scale(1.5); /* バイブチェックボックスを大きく */
   margin-left: 10px;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px; /* サイズを大きく */
+  height: 24px;
+  border: 2px solid #00f0ff;
+  background-color: #1a1a2e;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alarm-details input[type='checkbox'].alarm-vibe:checked {
+  background-color: #00ff88;
+  border-color: #00ff88;
+}
+
+.alarm-details input[type='checkbox'].alarm-vibe:checked::after {
+  content: '✔';
+  color: #1a1a2e;
+  font-size: 18px;
 }
 
 .alarm-details select,
-.alarm-details input[type="text"] {
-  width: 100%;
+.alarm-details input[type='text'] {
+  width: calc(100% - 24px); /* パディングとボーダーを考慮して幅を調整 */
   padding: 12px;
   font-size: 1rem;
   border-radius: 8px;
@@ -125,4 +159,32 @@ body
   font-family: 'Press Start 2P', cursive;
   margin-top: 6px;
   box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px; /* 上部の余白を調整 */
+}
+
+.add-alarm-button,
+.home {
+  width: 100%; /* 親要素の幅いっぱいに広げる */
+  padding: 16px;
+  font-size: 1rem;
+  background-color: #00ff88;
+  border: none;
+  color: #000;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center; /* ボタンのテキストを中央揃え */
+  text-decoration: none; /* aタグのアンダーラインを削除 */
+  display: block; /* aタグをブロック要素にする */
+}
+
+.add-alarm-button:hover,
+.home:hover {
+  background-color: #00cc66;
 }

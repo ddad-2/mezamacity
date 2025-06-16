@@ -4,13 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>目覚ましティ - アラーム設定</title>
+    <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/alarm.css" />
   </head>
   <body>
-    <div class="login-container">
+    <header>
+      <a
+        href="../HTML/home.html"
+        class="home-btn"
+        style="color: #fff; text-decoration: none; font-size: 0.9em"
+      >
+        ← ホームに戻る
+      </a>
+      <h1 style="margin: 0; font-size: 1.2em; flex: 1; text-align: center">
+        目覚まし設定
+      </h1>
+      <span style="width: 90px"></span>
+      </header>
+    <div class="main-content">
       <h1 class="game-title">アラーム設定</h1>
       <div class="login-panel alarm-panel">
-        <!-- アラーム1 -->
         <div class="alarm-item">
           <div class="alarm-time">
             <input type="time" value="07:00" />
@@ -47,16 +60,16 @@
             <label>
               メモ <input type="text" placeholder="例：試験の日" class="alarm-note" />
             </label>
-
           </div>
-
+        </div>
         <div class="button-group">
           <a href="alarmConfimation.html" class="nav-item">
-  <button class="add-alarm-button">＋ 新しいアラーム</button>
-  <a href="alarmConfimation.html" class="nav-item">
-  <a href="alarmConfimation.html" class="nav-item">
-    <button class="home">一覧に戻る</button>
-  </a>
+            <button class="add-alarm-button">アラームを保存</button>
+          </a>
+          <a href="alarmConfimation.html" class="nav-item">
+            <button class="home">一覧に戻る</button>
+          </a>
+        </div>
       </div>
     </div>
   </body>

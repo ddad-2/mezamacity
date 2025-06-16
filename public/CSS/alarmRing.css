@@ -39,3 +39,9 @@ body {
   background-color: #ffa500;
   color: white;
 }
+.hidden-iframe {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: -9999px;
+}

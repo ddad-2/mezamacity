@@ -12,13 +12,22 @@
     <h1>⏰ アラーム中！</h1>
     <div class="alarm-time" id="current-time">07:00</div>
 
-    <button class="stop-btn" onclick="stopAlarm()">アラームを止める</button>
+    <button  class="stop-btn" onclick="stopAlarm()">アラームを止める</button>
     <button class="snooze-btn" onclick="snoozeAlarm()">スヌーズ（5分）</button>
 
-    <!-- 修正：音声ファイルのパス確認 -->
-    <audio id="alarm-sound" src="../SOUNDS/alarm.mp3" loop autoplay></audio>
+    <!-- 修正済み：新しいYouTube音源 -->
+    <iframe
+  id="alarm-sound"
+  src="https://www.youtube.com/embed/o6wtDPVkKqI?autoplay=1&loop=1&playlist=o6wtDPVkKqI"
+  allow="autoplay"
+  style="width: 1px; height: 1px; position: absolute; left: -9999px;"
+></iframe>
+
+
+    <!-- https://youtu.be/o6wtDPVkKqI?si=DVxljC9EM64fi7ns-->
   </div>
 
+  <script src="/socket.io/socket.io.js"></script>
   <script src="../SCRIPT/alarmRing.js"></script>
 </body>
 </html>

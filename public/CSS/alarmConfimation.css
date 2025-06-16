@@ -6,10 +6,14 @@ body {
   color: #fff;
 }
 
+
+
 .list-container {
   padding: 40px 20px;
   max-width: 600px;
   margin: 0 auto;
+  /* Add padding-top to prevent content from going under the sticky header */
+  padding-top: 80px; /* Adjust based on your header's height */
 }
 
 .page-title {
@@ -64,28 +68,16 @@ body {
   color: #000;
 }
 
-.back-button-wrapper {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+/* New wrapper for the fixed "Add Alarm" button */
+.add-alarm-wrapper {
+  position: fixed;
+  bottom: 20px; /* Position at the bottom */
+  left: 20px; /* Position at the left */
+  z-index: 999; /* Ensure it's below the header if header is sticky */
 }
 
 .add-btn {
-  padding: 10px 20px;
-  font-size: 0.8rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Press Start 2P', cursive;
   background-color: #00ff88;
   color: #000;
+  /* Ensure the add-btn styles are applied directly to the button */
 }
-.add-btn-wrappe {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
-}
-
-

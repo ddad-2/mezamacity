@@ -32,12 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 msgBox.className = "success-msg";
                 msgBox.textContent = data.message;
                 form.reset(); // フォームをリセット
-                // 成功したらダッシュボードやホーム画面へリダイレクト
-                // 例: window.location.href = "/dashboard.html";
+
+                //サーバーから受け取ったuser_idをlocalStorageに保存
+                // サーバーのlogin.jsでレスポンスにuser.user_idが含まれていることを確認してください
+                if (data.user && data.user.user_id) {
+                    localStorage.setItem('user_id', data.user.user_id);
+                    console.log('User ID saved to localStorage:', data.user.user_id);
+                }
+
+                // ログイン成功後、ホーム画面へリダイレクト
+                window.location.href = "/HTML/home.html";
                 console.log("ログイン成功！", data.user);
             } else { // ステータスコードが2xx以外の場合（エラー）
                 msgBox.className = "error-msg";
                 msgBox.textContent = data.error || "不明なログインエラーが発生しました";
+                console.error("ログインエラー:", data.error);
             }
         } catch (err) {
             msgBox.className = "error-msg";
