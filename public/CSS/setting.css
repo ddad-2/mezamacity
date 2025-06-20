@@ -1,4 +1,10 @@
 /* setting.css */
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +25,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 80px; /* ヘッダーの高さとコンテンツの間のスペースを確保 */
+  padding-top: 40px; /* ヘッダーの高さとコンテンツの間のスペースを確保 */
   padding-bottom: 20px;
   box-sizing: border-box;
   width: 100%;

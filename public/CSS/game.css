@@ -1,14 +1,27 @@
-/* ベース設定 */
-body,
-html {
+/* リセットとベース設定 */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
   font-family: sans-serif;
-  background: #222;
+  background: #00FFFF;
   color: #fff;
-  min-height: 100vh;
+}
+
+/* ヘッダーとメインを縦に並べる */
+body {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  background-color: #FFCCFF;
+}
+
+main {
+  padding: 0;
 }
 
 /* メインコンテンツを中央寄せ */
@@ -18,13 +31,12 @@ html {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 70%;
   margin: 0 auto;
 }
 
 /* ステータス表示 */
 #stats {
-  margin: 0;
   padding: 10px 0;
   font-size: 18px;
   text-align: center;
@@ -35,7 +47,7 @@ html {
   display: grid;
   grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
-  gap: 2px;
+  gap: 0;
   justify-content: center;
   margin: 0 auto;
 }
@@ -46,7 +58,7 @@ html {
   height: 50px;
   background-color: #4caf50;
   background-size: cover;
-  border: 1px solid #333;
+  border: none;
   cursor: pointer;
   transition: transform 0.1s;
 }
@@ -81,6 +93,7 @@ html {
   box-shadow: none;
   transition: outline 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
+
 .building-btn.active {
   outline: 4px solid #fff;
   box-shadow: 0 0 16px 4px #fff, 0 0 8px 2px #f5a623;

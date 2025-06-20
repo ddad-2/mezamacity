@@ -3,11 +3,9 @@
   const style = document.createElement('style');
   style.textContent = `
     body {
-      background: #222;
-      color: #fff;
       font-family: sans-serif;
       text-align: center;
-      padding: 20px;
+      padding: 0px;
     }
     #stats {
       margin-bottom: 10px;

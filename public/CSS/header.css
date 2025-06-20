@@ -5,10 +5,10 @@
   box-sizing: border-box;
 }
 
+
 /* ヘッダー本体の設定 */
 header {
-  width: 100%;
-  padding: 15px 20px;
+  width: 100vw; /* ← viewport 全幅を使う */  padding: 15px 20px;
   background: linear-gradient(to right, #4a90e2, #6a5acd);
   color: #fff;
   font-size: 1.2em;
@@ -21,14 +21,25 @@ header {
   left: 0;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
 }
 
 /* ヘッダー内要素の余白を除去 */
-header h1,
+
 header a,
 header span {
   margin: 0;
   padding: 0;
+}
+
+/* ヘッダー内要素の余白を除去 */
+/* header a, header span は現状のままでOK */
+
+header h1 {
+  text-align: center; /* テキストを中央寄せ */
+  margin: 0;
+  padding: 0;
+  flex-grow: 1; /* 利用可能なスペースを全て占有する */
 }
 
 /* ホームリンク */
@@ -37,3 +48,4 @@ header span {
   text-decoration: none;
   font-size: 0.9em;
 }
+

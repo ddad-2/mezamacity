@@ -30,13 +30,12 @@
           <p class="alarm-days">月 火 水 木 金</p>
           <p class="alarm-sound">音: ピコーン</p>
           <p class="alarm-memo">メモ: 会社</p>
-          <p class="alarm-vibe">バイブ: オン</p>
         </div>
         <div class="alarm-actions">
-          <button class="edit-btn">編集</button>
-          <button class="delete-btn">削除</button>
+            <a href="alarm.html" class="edit-btn">編集</a>
+            <button class="delete-btn">削除</button>
         </div>
-      </div>
+
 
       </div>
 
@@ -45,5 +44,16 @@
         <button class="add-btn">＋ アラームを追加</button>
       </a>
     </div>
+
+    <!-- 削除確認モーダル -->
+<div id="alarm-delete-modal" class="modal hidden">
+  <div class="modal-content">
+    <p>このアラームを削除してもよろしいですか？</p>
+    <button id="alarmConfirmDelete" class="yes-button">はい</button>
+    <button id="alarmCancelDelete" class="no-button">キャンセル</button>
+  </div>
+</div>
+    <script src="../SCRIPT/aralmConfimation.js"></script>
+
   </body>
 </html>

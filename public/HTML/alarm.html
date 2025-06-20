@@ -1,76 +1,71 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>目覚ましティ - アラーム設定</title>
-    <link rel="stylesheet" href="../CSS/header.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>目覚ましティ - アラーム設定</title>
+  <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/alarm.css" />
-  </head>
-  <body>
-    <header>
-      <a
-        href="../HTML/home.html"
-        class="home-btn"
-        style="color: #fff; text-decoration: none; font-size: 0.9em"
-      >
-        ← ホームに戻る
-      </a>
-      <h1 style="margin: 0; font-size: 1.2em; flex: 1; text-align: center">
-        目覚まし設定
-      </h1>
-      <span style="width: 90px"></span>
-      </header>
-    <div class="main-content">
-      <h1 class="game-title">アラーム設定</h1>
-      <div class="login-panel alarm-panel">
+  
+</head>
+<body>
+  <header>
+    <a href="../HTML/home.html" class="home-btn">← ホームに戻る</a>
+    <h1>目覚まし設定</h1>
+    <span></span>
+  </header>
+
+  <div class="main-content">
+    <h1 class="game-title">アラーム設定</h1>
+
+    <form id="alarm-form">
+      <div class="alarm-panel">
         <div class="alarm-item">
           <div class="alarm-time">
-            <input type="time" value="07:00" />
+            <input type="time" name="alarmTime" value="07:00" required />
           </div>
 
-          <div class="alarm-details">
+          <div class="alarm-settings-group">
             <div class="repeat-days">
-              <label><input type="checkbox" />月</label>
-              <label><input type="checkbox" />火</label>
-              <label><input type="checkbox" />水</label>
-              <label><input type="checkbox" />木</label>
-              <label><input type="checkbox" />金</label>
-              <label><input type="checkbox" />土</label>
-              <label><input type="checkbox" />日</label>
+              <label><input type="checkbox" name="weekdays" value="月" />月</label>
+              <label><input type="checkbox" name="weekdays" value="火" />火</label>
+              <label><input type="checkbox" name="weekdays" value="水" />水</label>
+              <label><input type="checkbox" name="weekdays" value="木" />木</label>
+              <label><input type="checkbox" name="weekdays" value="金" />金</label>
+              <label><input type="checkbox" name="weekdays" value="土" />土</label>
+              <label><input type="checkbox" name="weekdays" value="日" />日</label>
             </div>
 
-            <label>
-              音
-              <select class="alarm-sound">
-                <option>ピコーン</option>
-                <option>ベル</option>
-                <option>鳥のさえずり</option>
-                <option>エヴァ予告</option>
-                <option>エヴァ覚醒BGM</option>
-                <option>セブンフラッシュ</option>
-                <option>魂のルフラン</option>
+            <div class="sound-option">
+              <label><input type="checkbox" id="use-youtube" />YouTubeの音を使う</label>
+            </div>
+
+            <div class="youtube-section" id="youtube-section">
+              <label for="youtube-url">YouTubeアラームURL</label>
+              <input type="url" id="youtube-url" name="youtubeUrl" placeholder="URLを入力してください" />
+            </div>
+
+            <div class="default-sound-section" id="default-sound-section">
+              <label for="sound-a">音</label>
+              <select id="sound-a" name="soundId" required>
+                <option value="picoon">ピコーン</option>
+                <option value="bell">ベル</option>
+                <option value="bird">鳥のさえずり</option>
+                <option value="eva">エヴァ予告</option>
               </select>
-            </label>
-
-            <label>
-              バイブ <input type="checkbox" class="alarm-vibe" />
-            </label>
-
-            <label>
-              メモ <input type="text" placeholder="例：試験の日" class="alarm-note" />
-            </label>
+            </div>
           </div>
         </div>
-        <div class="button-group">
-          <a href="alarmConfimation.html" class="nav-item">
-            <button class="add-alarm-button">アラームを保存</button>
-          </a>
-          <a href="alarmConfimation.html" class="nav-item">
-            <button class="home">一覧に戻る</button>
-          </a>
-        </div>
       </div>
-    </div>
-  </body>
+
+      <div class="button-group">
+        <button type="submit" class="add-alarm-button">アラームを保存</button>
+        <a href="alarmConfimation.html" class="home">一覧に戻る</a>
+      </div>
+    </form>
+  </div>
+
+      <script src="../SCRIPT/alarmSettings.js"></script>
+
+</body>
 </html>
