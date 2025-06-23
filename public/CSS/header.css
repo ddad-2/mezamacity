@@ -5,47 +5,52 @@
   box-sizing: border-box;
 }
 
-
 /* ヘッダー本体の設定 */
 header {
-  width: 100vw; /* ← viewport 全幅を使う */  padding: 15px 20px;
+  width: 100%;
+  padding: 35px 20px;
   background: linear-gradient(to right, #4a90e2, #6a5acd);
   color: #fff;
-  font-size: 1.2em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  letter-spacing: 0.08em;
   position: sticky;
   top: 0;
-  left: 0;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  margin: 0 auto;
+  font-size: 1.6rem;           /* フォントサイズを少し大きく */
+  font-weight: 700;            /* 太字に（boldは700に相当） */
+
+}
+
+/* 中央見出しの絶対中央配置 */
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 2.5rem;
+  white-space: nowrap;
+  font-weight: 1000;
 }
 
 /* ヘッダー内要素の余白を除去 */
-
 header a,
 header span {
   margin: 0;
   padding: 0;
 }
 
-/* ヘッダー内要素の余白を除去 */
-/* header a, header span は現状のままでOK */
-
-header h1 {
-  text-align: center; /* テキストを中央寄せ */
-  margin: 0;
-  padding: 0;
-  flex-grow: 1; /* 利用可能なスペースを全て占有する */
-}
-
-/* ホームリンク */
+/* ホームに戻るボタン調整 */
 .home-btn {
-  color: #fff;
-  text-decoration: none;
+  display: block;               /* インラインからブロックに */
+  width: 140px;                 /* 左右バランスのための固定幅 */
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.9em;
+  line-height: 1;               /* 行の高さによる余白防止 */
+  text-decoration: none;
 }
-

@@ -6,14 +6,15 @@
   <title>目覚ましティ - アラーム設定</title>
   <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/alarm.css" />
+    <link rel="stylesheet" href="../CSS/footer.css" />
   
 </head>
 <body>
   <header>
-    <a href="../HTML/home.html" class="home-btn">← ホームに戻る</a>
-    <h1>目覚まし設定</h1>
-    <span></span>
-  </header>
+  <h1 class="header-title">アラーム設定</h1>
+  <div class="header-right"></div> <!-- 空要素でバランスを取る -->
+</header>
+
 
   <div class="main-content">
     <h1 class="game-title">アラーム設定</h1>
@@ -64,6 +65,31 @@
       </div>
     </form>
   </div>
+
+  <footer>
+  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
+    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
+      <div class="icon">🏠</div>
+      <div class="label">ホーム</div>
+    </a>
+    <a href="../HTML/game.html" class="nav-item">
+      <div class="icon">📊</div>
+      <div class="label">育成画面</div>
+    </a>
+    <a href="../HTML/alarmConfimation.html" class="nav-item">
+      <div class="icon">⏰</div>
+      <div class="label">目覚まし設定</div>
+    </a>
+    <a href="settings.html" class="nav-item">
+      <div class="icon">⚙️</div>
+      <div class="label">設定</div>
+    </a>
+    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
+      <div class="icon">🔓</div>
+      <div class="label">ログアウト</div>
+    </button>
+  </nav>
+  </footer>
 
       <script src="../SCRIPT/alarmSettings.js"></script>
 

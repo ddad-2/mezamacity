@@ -91,52 +91,7 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
-/* 下部ナビゲーション */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: #222;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.8);
-  z-index: 1000;
-}
 
-.nav-item {
-  flex-grow: 1;
-  text-align: center;
-  color: #bbb;
-  text-decoration: none;
-  font-size: 10px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.3s;
-  border: none;
-  background: none;
-}
-
-.nav-item .icon {
-  font-size: 24px;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.nav-item:hover,
-.nav-item:focus {
-  color: #ffcc00;
-}
-
-.nav-item.active {
-  color: #ffcc00;
-  font-weight: bold;
-}
 
 /* デジタル時計のスタイル */
 .digital-clock {

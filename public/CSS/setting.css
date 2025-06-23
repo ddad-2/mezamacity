@@ -1,221 +1,119 @@
-/* setting.css */
-html {
+/* リセット */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
+/* 全体の背景やフォントなど */
 body {
-  margin: 0;
-  padding: 0;
   background: linear-gradient(#1a1a2e, #16213e);
   font-family: 'Press Start 2P', cursive;
   color: #fff;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  padding-bottom: 80px; /* フッターとの重なり防止 */
 }
 
+/* 全体ラップ */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-/* ヘッダーの下のメインコンテンツ全体を囲むラッパー */
+/* メインコンテンツ */
 .main-content-wrapper {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 40px; /* ヘッダーの高さとコンテンツの間のスペースを確保 */
-  padding-bottom: 20px;
-  box-sizing: border-box;
-  width: 100%;
+  padding-top: 40px;
+  padding-bottom: 80px;
 }
 
+/* 中央の設定フォーム全体 */
 .login-container {
   background: rgba(255, 255, 255, 0.1);
   border: 3px solid #00f0ff;
-  border-radius: 5%;
+  border-radius: 20px;
   padding: 30px;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 0 15px #00f0ff;
-  margin-top: -50px; /* この値を調整して、login-container の垂直位置を微調整できます */
+  box-shadow: 0 0 25px #00f0ff;
 }
+
 .game-title {
   text-align: center;
-  margin-bottom: 30px;
   font-size: 1.8rem;
+  margin-bottom: 30px;
 }
 
-
-
+/* 各設定項目グループ */
 .setting-group {
-  margin-bottom: 20px; /* %ではなくpxで統一感を出す */
-  text-align: left;
+  margin-bottom: 20px;
   color: #00f0ff;
 }
 
 .setting-group label {
-  display: block; /* ラベルをブロック要素にして下のselectと分離 */
-  margin-bottom: 8px; /* ラベルとセレクトボックスの間の余白 */
-  font-size: 1.1em; /* ラベルのフォントサイズ */
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
 }
 
+/* セレクトボックス共通 */
 select {
   width: 100%;
-  padding: 12px; /* パディングを増やす */
-  border-radius: 8px; /* 角丸を調整 */
-  background-color: #222;
+  padding: 12px;
+  background-color: #111;
   color: #fff;
-  border: none;
+  border-radius: 10px;
   font-family: 'Press Start 2P', cursive;
-  box-sizing: border-box; /* パディングを幅に含める */
-  -webkit-appearance: none; /* Safari/Chromeでのデフォルトスタイルを無効化 */
-  -moz-appearance: none; /* Firefoxでのデフォルトスタイルを無効化 */
-  appearance: none; /* ドロップダウン矢印などをカスタマイズ可能に */
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M128%20192L48%20112h160z%22%2F%3E%3C%2Fsvg%3E'); /* カスタム矢印 */
+  border: none;
+  font-size: 0.9em;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right 10px center;
   background-size: 12px;
 }
 
+/* ボタン全体のラップ */
 .account-actions {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* ボタン間のギャップを調整 */
-  margin-top: 30px; /* 上部の余白を調整 */
-}
-
-button {
-  width: 100%;
-  padding: 15px; /* パディングを増やす */
-  border-radius: 8px;
-  font-family: 'Press Start 2P', cursive;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: 0.3s;
-  font-size: 1em; /* フォントサイズを調整 */
-}
-
-.primary-button {
-  background-color: rgb(55, 67, 236);
-  color: #fff;
-}
-
-.primary-button:hover {
-  background-color: rgb(40, 50, 190);
-}
-
-.danger-button {
-  background-color: #f51a1a;
-  color: #fff;
-}
-
-.danger-button:hover {
-  background-color: #d01515;
-}
-
-.home-button {
-  /* position: absolute; は不要なので削除。flexboxの親で位置を管理 */
-  margin-top: 25px; /* 上部の余白を調整 */
-  background: none;
-  color: #00ff88;
-  padding: 0;
-  border: none;
-  font-family: 'Press Start 2P', cursive;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.95em; /* フォントサイズを調整 */
-  transition: color 0.3s;
-  display: block; /* リンクをブロック要素にして中央寄せ可能に */
-  text-align: center; /* テキストを中央寄せ */
-}
-
-.home-button:hover {
-  color: #00cc6a;
-}
-
-/* モーダル共通スタイル */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* 背景を少し濃くしてモーダルを目立たせる */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-/* 非表示状態 */
-.modal.hidden {
-  display: none;
-}
-
-/* モーダルボックス */
-.modal-content {
-  background: #fff;
-  color: #333;
-  font-weight: bold;
-  padding: 30px 40px; /* パディングを固定値にする */
-  border-radius: 10px; /* 角丸を調整 */
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 影を調整 */
-  font-family: sans-serif; /* モーダル内のフォントは読みやすいものに */
-  max-width: 350px; /* モーダル幅の最大値 */
-  width: 90%; /* レスポンシブ対応 */
+  gap: 15px;
+  margin-top: 30px;
 }
 
 /* ボタン共通 */
-.modal-content button {
-  margin: 15px 10px 0; /* 上のマージンを増やす */
-  padding: 10px 25px; /* パディングを調整 */
+button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
   border: none;
-  border-radius: 5px; /* 角丸を調整 */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.95em;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-family: sans-serif; /* モーダル内のボタンのフォント */
+  transition: 0.3s;
 }
 
-/* 「はい」ボタン (削除用) */
-.yes-button {
-  background-color: #e74c3c;
+/* 保存するボタン */
+.primary-button {
+  background-color: #3b45f7;
   color: white;
 }
-
-.yes-button:hover {
-  background-color: #c0392b;
+.primary-button:hover {
+  background-color: #2d35c6;
 }
 
-/* 「キャンセル」ボタン (削除用) */
-.no-button {
-  background-color: #bdc3c7;
-  color: #333;
-}
-
-.no-button:hover {
-  background-color: #95a5a6;
-}
-
-/* 保存モーダルの「はい」ボタン */
-.save-yes-button {
-  background-color: #2ecc71;
+/* アカウント削除ボタン */
+.danger-button {
+  background-color: #f51a1a;
   color: white;
 }
-.save-yes-button:hover {
-  background-color: #27ae60;
-}
-
-/* 保存モーダルの「キャンセル」ボタン */
-.save-no-button {
-  background-color: #95a5a6;
-  color: #333;
-}
-.save-no-button:hover {
-  background-color: #7f8c8d;
+.danger-button:hover {
+  background-color: #c91414;
 }

@@ -55,3 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+//テストユーザーでログイン
+document.getElementById('test-login-btn').addEventListener('click', () => {
+  const email = 'test@example.com';      // テストユーザーのメール
+  const password = 'testpass';           // テストユーザーのパスワード
+
+  // 自動でフォームに入力
+  document.getElementById('email').value = email;
+  document.getElementById('password').value = password;
+
+  // フォームを送信
+  document.getElementById('login-form').submit();
+});

@@ -1,79 +1,85 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>目覚ましティ - 設定</title>
-    <link rel="stylesheet" href="../CSS/setting.css" />
-    <link rel="stylesheet" href="../CSS/header.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>目覚ましティ - 設定</title>
+  <link rel="stylesheet" href="../CSS/setting.css" />
+  <link rel="stylesheet" href="../CSS/header.css" />
+  <link rel="stylesheet" href="../CSS/footer.css" />
 </head>
 <body>
+  <div class="page-wrapper">
     <header>
-        <a
-        href="../HTML/home.html"
-        class="home-btn"
-        style="color: #fff; text-decoration: none; font-size: 0.9em"
-        >
-         ←ホームに戻る
-        </a>
-        <h1 style="margin: 0; font-size: 1.2em; flex: 1; text-align: center">
-        設定画面
-        </h1>
-        <span style="width: 90px"></span>
-        </header>
- 
-    <div class="main-content-wrapper">
-        <div class="login-container">
-            <h1 class="game-title">設定</h1>
-            <div class="settings-panel">
-                <form>
-                    <div class="setting-group">
-                        <label for="theme">テーマ</label>
-                        <select id="theme" name="theme">
-                            <option value="dark">ライトモード</option>
-                            <option value="light">ダークモード</option>
-                        </select>
-                    </div>
+      <h1 class="header-title">設定画面</h1>
+      <div class="header-right"></div>
+    </header>
 
-                    <div class="setting-group">
-                        <label for="fontsize">文字サイズ</label>
-                        <select id="fontsize" name="fontsize">
-                            <option value="small">小</option>
-                            <option value="medium">中</option>
-                            <option value="large">大</option>
-                        </select>
-                    </div>
-
-                    <div class="setting-group">
-                        <label for="language">言語</label>
-                        <select id="language" name="language">
-                            <option value="ja">日本語</option>
-                            <option value="en">English</option>
-                        </select>
-                    </div>
-                </form> <div class="setting-group account-actions">
-                    <button type="button" class="primary-button">保存する</button>
-                    <button type="button" class="danger-button" id="deleteBtn">アカウント削除</button>
-                </div>
+    <main class="main-content-wrapper">
+      <div class="login-container">
+        <h1 class="game-title">設定</h1>
+        <div class="settings-panel">
+          <form>
+            <div class="setting-group">
+              <label for="theme">テーマ</label>
+              <select id="theme" name="theme">
+                <option value="dark">ライトモード</option>
+                <option value="light">ダークモード</option>
+              </select>
             </div>
-        </div>
 
-        <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <p>本当に削除しますか？</p>
-                <button id="confirmDelete" class="yes-button">はい</button>
-                <button id="cancelDelete" class="no-button">キャンセル</button>
+            <div class="setting-group">
+              <label for="fontsize">文字サイズ</label>
+              <select id="fontsize" name="fontsize">
+                <option value="small">小</option>
+                <option value="medium">中</option>
+                <option value="large">大</option>
+              </select>
             </div>
-        </div>
 
-        <div id="save-modal" class="modal hidden">
-            <div class="modal-content">
-                <p>設定を保存しますか？</p>
-                <button id="confirmSave" class="save-yes-button">はい</button>
-                <button id="cancelSave" class="save-no-button">キャンセル</button>
+            <div class="setting-group">
+              <label for="language">言語</label>
+              <select id="language" name="language">
+                <option value="ja">日本語</option>
+                <option value="en">English</option>
+              </select>
             </div>
+          </form>
+
+          <div class="setting-group account-actions">
+            <button type="button" class="primary-button">保存する</button>
+            <button type="button" class="danger-button" id="deleteBtn">アカウント削除</button>
+          </div>
         </div>
-    </div>   
-    <script src="../SCRIPT/setteig.js"></script>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
+    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
+      <div class="icon">🏠</div>
+      <div class="label">ホーム</div>
+    </a>
+    <a href="../HTML/game.html" class="nav-item">
+      <div class="icon">📊</div>
+      <div class="label">育成画面</div>
+    </a>
+    <a href="../HTML/alarmConfimation.html" class="nav-item">
+      <div class="icon">⏰</div>
+      <div class="label">目覚まし設定</div>
+    </a>
+    <a href="settings.html" class="nav-item">
+      <div class="icon">⚙️</div>
+      <div class="label">設定</div>
+    </a>
+    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
+      <div class="icon">🔓</div>
+      <div class="label">ログアウト</div>
+    </button>
+  </nav>
+  </footer>
+  
+  <script src="../SCRIPT/setteig.js"></script>
 </body>
 </html>

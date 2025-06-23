@@ -1,4 +1,4 @@
-    /* リセット */
+/* リセット */
     * {
       margin: 0;
       padding: 0;
@@ -15,22 +15,42 @@
       min-height: 100vh;
     }
     header {
-      width: 100vw;
-      padding: 15px 20px;
-      background: linear-gradient(to right, #4a90e2, #6a5acd);
-      color: #fff;
-      font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      letter-spacing: 0.08em;
-      position: sticky;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      margin: 0 auto;
-    }
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(to right, #4a90e2, #6a5acd);
+  color: #fff;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+}
+
+header a.home-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9em;
+  min-width: max-content; /* ✅ 改善ポイント */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.2em;
+  text-align: center;
+  flex-grow: 1;
+  white-space: nowrap;
+}
+
+header span {
+  width: auto; /* ✅ または min-width: 90px; */
+}
+
     header h1 {
       margin: 0;
       font-size: 1.2em;

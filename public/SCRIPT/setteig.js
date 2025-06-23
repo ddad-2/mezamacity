@@ -60,3 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 保存処理をここに書く（フォーム送信、ローカル保存など）
   });
 });
+
+function logout() {
+  // ここでログアウト処理（セッション破棄やトークン削除など）を実装するなら行う
+  // 例: localStorage.clear(); セッション削除等
+
+  // ログインページへリダイレクト
+  window.location.href = "../HTML/login.html";
+}

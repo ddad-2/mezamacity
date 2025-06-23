@@ -1,5 +1,3 @@
-
-
 body {
   margin: 0;
   padding: 0;
@@ -9,32 +7,40 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 60px;
+  font-size: 16px; /* ← 全体ベースサイズを拡大 */
 }
 
 .login-container {
   text-align: center;
+  width: 100%;
+  max-width: 500px; /* ← ボックスを拡大 */
+  padding: 30px;
 }
 
 .game-title {
-  font-size: 2rem;
+  font-size: 2.4rem; /* ← タイトルを拡大 */
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-shadow: 2px 2px #000;
 }
 
 .login-panel {
   background: rgba(255, 255, 255, 0.1);
   border: 3px solid #00f0ff;
-  border-radius: 15px;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 0 15px #00f0ff;
+  border-radius: 20px;
+  padding: 40px; /* ← パネルを大きく */
+  box-shadow: 0 0 20px #00f0ff;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .login-panel h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #fff;
+  font-size: 1.5rem; /* ← サブタイトルも拡大 */
 }
 
 form {
@@ -44,25 +50,27 @@ form {
 
 label {
   text-align: left;
-  margin-bottom: 5px;
-  font-size: 0.75rem;
+  margin-bottom: 8px;
+  font-size: 1rem;
 }
 
 input {
-  padding: 10px;
+  padding: 14px;
   border: none;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
   background-color: #222;
   color: #fff;
+  font-size: 1rem;
   font-family: 'Press Start 2P', cursive;
 }
 
 button {
-  padding: 10px;
+  padding: 14px;
+  font-size: 1rem;
   background-color: #00f0ff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   color: #000;
   font-weight: bold;
   cursor: pointer;
@@ -72,13 +80,14 @@ button {
 button:hover {
   background-color: #00aaff;
 }
+
 .signup-section {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .signup-section p {
-  margin-bottom: 10px;
-  font-size: 0.75rem;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
   color: #ccc;
 }
 
@@ -86,14 +95,19 @@ button:hover {
   display: inline-block;
   background-color: #00ff88;
   color: #000;
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 12px 18px;
+  border-radius: 10px;
   font-weight: bold;
   text-decoration: none;
   transition: background-color 0.3s ease;
+  font-size: 1rem;
   font-family: 'Press Start 2P', cursive;
 }
 
 .signup-button:hover {
   background-color: #00cc66;
+}
+
+h2 {
+  font-size: 1.8rem;
 }

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>目覚まシティ</title>
   <link rel="stylesheet" href="../CSS/home.css" />
+  <link rel="stylesheet" href="../CSS/footer.css" />
 </head>
 <body>
 
@@ -18,8 +19,9 @@
 
   <div class="digital-clock" id="digital-clock" aria-label="デジタル時計" role="status"></div>
 
+  <footer>
   <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="#" class="nav-item active" aria-current="page">
+    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
       <div class="icon">🏠</div>
       <div class="label">ホーム</div>
     </a>
@@ -40,13 +42,14 @@
       <div class="label">ログアウト</div>
     </button>
   </nav>
+  </footer>
 
    <a href="alarmRing.html" class="nav-item">
     <button class="home">テスト</button>
   </a>
   <script src="../SCRIPT/home.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/SCRIPT/alarmRing.js"></script>
+  <script src="../SCRIPT/alarmRing.js"></script>
 
 
 </body>
