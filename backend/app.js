@@ -2,80 +2,92 @@
 // node app.jsというコマンドで実行
 //http://localhost:3000 で確認
 
-// npm install express 環境作成
+//npm install express 環境作成
 //npm install mysql2  mysqlに接続
+//npm install express-session リダイレクトを使用できる
+//npm install bcryptjs ハッシュ化できる
+//npm install socket.io リアルタイム通信
 
 const express = require("express");
-const mysql = require("mysql2");
+const path = require("path");
+const pool = require("./db");
+const http = require("http");
+const socketIo = require("socket.io");
+const session = require("express-session");
+const { setupAlarmScheduler } = require("./ring-alarm"); // 追加（あれば）
+
+// ルーティングファイルのインポート
+const registerRoutes = require("./register");
+const loginRoutes = require("./login");
+
 const app = express();
 
+// HTTPサーバー作成
+const server = http.createServer(app);
 
-//htmlフォームから送られてくるデータを解析するために必要
-app.use(express.urlencoded({ extended: true}));
-//json形式のボディを解析するために必要
+// Socket.ioサーバー作成
+const io = socketIo(server);
+
+// ミドルウェア設定（一度だけ記述）
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../frontend/public")));
 
-//起動してイルカの確認
-app.get("/", (req, res) => {
-    res.send("Hello Node.js!");
+app.use(session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Socket.io 接続イベント
+io.on("connection", (socket) => {
+    console.log("ユーザーが接続しました");
 });
 
-//サーバー起動
-app.listen(3000, () => {
+// アラーム定期処理を起動（ring-alarm.jsの関数があれば）
+setupAlarmScheduler(io);
+
+// ルート設定
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/home.html"));
+});
+app.get("/register.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/register.html"));
+});
+app.get("/login.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/login.html"));
+});
+app.get("/home.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/home.html"));
+});
+app.get("/alarm.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/alarm.html"));
+});
+app.get("/settings.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/settings.html"));
+});
+app.get("/game.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/HTML/game.html"));
+});
+
+// ルーティング設定
+app.use("/register", registerRoutes);
+app.use("/login", loginRoutes);
+
+// サーバー起動はserver.listenに変更
+server.listen(3000, () => {
     console.log("Server running on port 3000");
 });
 
-// MySQLの接続情報を定義
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "mezamacity",
-    password: "city",
-    database: "mezamacity_db",
-});
-
-// MySQLに接続
-connection.connect((err) => {
-    if (err) {
-        console.error("MySQL connection error:", err);
-        return;
-    }
-    console.log("Connected to MySQL!");
-});
-
-//usersのデータを取得するAPI(動作確認用)
+// usersデータ取得API(動作確認用)
 app.get("/users", (req, res) => {
-    connection.query("SELECT * FROM users", (err, results) => {
+    pool.query("SELECT * FROM users", (err, results) => {
         if(err) {
             console.error("Query error:", err);
             res.status(500).send("DB Error");
             return;
         }
-        //表示
         console.log("DB raw results", results);
         res.json(results);
-    })
-})
-
-//新規登録のデータを処理するAPIエンドポイント
-//register.jsに移行する予定
-app.post("/register", (req, res) => {
-    //HTMLフォームから送られてきたデータはreq.bodyに入っている
-    const { username, email, password, 'confirm-password': confirmPassword} = req.body;
-
-    if(password !== confirmPassword)  {
-        return res.status(400).send("パスワードが一致しません");
-    }
-
-    const query = 'INSERT INTO users (user_name, password, email) VALUES (?, ?, ?)';
-    const values = [username, password, email]; //todo パスワードハッシュ化
-    connection.query(query, values, (err, results) => {
-        if(err) {
-            console.error("ユーザー登録エラー:", err);
-            if (err.code === 'ER_DUP_ENTRY') {
-                return res.status(400).send("ユーザー名またはメールアドレスが既に使用されています");
-            }
-        }
-        console.log("ユーザー登録成功:", results);
-        res.status(201).send("ユーザー登録が完了しました");
     });
 });
