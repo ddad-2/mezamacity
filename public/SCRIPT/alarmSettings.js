@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("alarm-form").addEventListener("submit", function (e) {
+  document.getElementById("alarm-form").addEventListener("submit", async function (e) {
     e.preventDefault();
     const form = e.target;
     const alarmTime = form.alarmTime.value;
@@ -47,20 +47,46 @@ document.addEventListener("DOMContentLoaded", () => {
       playDefaultSound(soundId);
     }
 
-    form.reset();
-    youtubeSection.style.display = "none";
-    defaultSoundSection.style.display = "flex";
-    document.getElementById("youtube-url").required = false;
-    document.getElementById("sound-a").required = true;
+    // --- ここから保存API呼び出し ---
+    try {
+      const userId = localStorage.getItem("user_id");
+      const res = await fetch("/alarm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          soundId,
+          alarmTime,
+          youtubeUrl,
+          weekdays
+        })
+      });
+      // 成功・失敗に関わらず遷移
+      window.location.href = "alarmConfimation.html";
+    } catch (err) {
+      // 通信エラー時も遷移
+      window.location.href = "alarmConfimation.html";
+    }
+    // --- ここまで保存API呼び出し ---
+
+    // フォームリセット等は画面遷移するので不要
   });
 
   function extractVideoId(url) {
-    const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/watch\?v=)([^\s&]+)/);
+    // YouTubeのURLから動画IDを抽出（短縮URLと通常URL両対応）
+    const match = url.match(
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]+)/i
+    );
     return match ? match[1] : null;
   }
 
   function playYouTube(videoId) {
+    // 既存のiframeがあれば削除（多重再生防止）
+    const oldIframe = document.getElementById("alarm-youtube-iframe");
+    if (oldIframe) oldIframe.remove();
+
     const iframe = document.createElement("iframe");
+    iframe.id = "alarm-youtube-iframe";
     iframe.width = "1";
     iframe.height = "1";
     iframe.style = "position:absolute; left:-9999px;";
@@ -95,3 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.play();
   }
 });
+    audio.loop = true;
+    audio.play();
+  

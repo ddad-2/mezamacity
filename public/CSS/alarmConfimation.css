@@ -16,6 +16,9 @@ body {
         min-height: 100vh;
         width: 100%;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
 
@@ -26,6 +29,9 @@ body {
   margin: 0 auto;
   /* Add padding-top to prevent content from going under the sticky header */
   padding-top: 80px; /* Adjust based on your header's height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .page-title {
@@ -82,18 +88,31 @@ body {
 
 /* New wrapper for the fixed "Add Alarm" button */
 .add-alarm-wrapper {
-  position: fixed;
-  bottom: 20px; /* Position at the bottom */
-  left: 20px; /* Position at the left */
-  z-index: 999; /* Ensure it's below the header if header is sticky */
+  margin: 30px auto 0 auto;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .add-btn {
   background-color: #00ff88;
   color: #000;
   /* Ensure the add-btn styles are applied directly to the button */
+  font-size: 1rem;
+  padding: 14px 0;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  margin: 0 auto;
+  display: block;
+  box-sizing: border-box;
 }
 
+.add-btn:hover {
+  background-color: #00cc66;
+}
 
 .modal {
   position: fixed;
