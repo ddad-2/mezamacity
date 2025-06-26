@@ -1,90 +1,87 @@
-const express = require('express');
-const mysql = require('mysql2/promise');
-const path = require('path');
+// alarm.js
+const express = require("express");
+const router = express.Router();
+const pool = require("./db");
 
-const app = express();
+// アラーム登録処理
+router.post("/", (req, res) => {
+    const { userId, soundId, alarmTime } = req.body;
 
-// ミドルウェア設定
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// 静的ファイル（例: index.html）を提供
-app.use(express.static(path.join(__dirname)));
-
-// DB接続プール
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'mezamacity',
-  password: 'city',
-  database: 'mezamacity_db',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
-
-// フロントページ（例: /index.htmlを返す）
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// アラーム設定API
-app.post('/api/alarms', async (req, res) => {
-  const {
-    user_id,
-    sound_id,
-    alarm_time,
-    is_enabled = true,
-    repeat_weekdays = [],
-    repeat_days = []
-  } = req.body;
-
-  if (!user_id || !sound_id || !alarm_time) {
-    return res.status(400).json({ error: 'user_id, sound_id, alarm_time are required' });
-  }
-
-  const connection = await pool.getConnection();
-  try {
-    await connection.beginTransaction();
-
-    // 1. ALARM_SETTINGS に登録
-    const [result] = await connection.execute(
-      `INSERT INTO ALARM_SETTINGS (user_id, sound_id, alarm_time, is_enabled) VALUES (?, ?, ?, ?)`,
-      [user_id, sound_id, alarm_time, is_enabled ? 1 : 0]
-    );
-    const setting_id = result.insertId;
-
-    // 2. 曜日繰り返しの登録
-    if (repeat_weekdays.length > 0) {
-      const weekdayRows = repeat_weekdays.map(weekday => [setting_id, weekday]);
-      await connection.query(
-        `INSERT INTO ALARM_REPEAT_WEEKDAY (setting_id, weekday) VALUES ?`,
-        [weekdayRows]
-      );
+    if (!userId || !soundId || !alarmTime) {
+        return res.status(400).json({ error: "必要な情報が足りません" });
     }
 
-    // 3. 特定日繰り返しの登録
-    if (repeat_days.length > 0) {
-      const repeatDayRows = repeat_days.map(date => [setting_id, date]);
-      await connection.query(
-        `INSERT INTO ALARM_REPEAT_DAY (setting_id, repeat_day) VALUES ?`,
-        [repeatDayRows]
-      );
+    const sql = "INSERT INTO alarm_settings (user_id, sound_id, alarm_time) VALUES (?, ?, ?)";
+    pool.query(sql, [userId, soundId, alarmTime], (err, result) => {
+        if (err) {
+            console.error("Insert Error:", err);
+            return res.status(500).json({ error: "データベースエラーが発生しました。" });
+        }
+
+        res.json({
+            message: "アラーム設定を保存しました。",
+            userId: userId,
+            alarmTime: alarmTime,
+            settingId: result.insertId
+        });
+    });
+});
+
+// アラーム一覧取得処理（ユーザーIDに紐づく）
+router.get("/list/:userId", async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const [alarms] = await pool.promise().query(`
+            SELECT s.setting_id, s.alarm_time, s.sound_id, a.sound_name, s.is_enabled
+            FROM alarm_settings s
+            LEFT JOIN alarm_sounds a ON s.sound_id = a.sound_id
+            WHERE s.user_id = ?
+            ORDER BY s.alarm_time ASC
+        `, [userId]);
+
+        const [weekdays] = await pool.promise().query(`
+            SELECT setting_id, weekday
+            FROM alarm_repeat_weekday
+            WHERE setting_id IN (SELECT setting_id FROM alarm_settings WHERE user_id = ?)
+        `, [userId]);
+
+        // 曜日をアラームごとにまとめる
+        const weekdayMap = {};
+        weekdays.forEach(row => {
+            if (!weekdayMap[row.setting_id]) {
+                weekdayMap[row.setting_id] = [];
+            }
+            weekdayMap[row.setting_id].push(row.weekday);
+        });
+
+        const result = alarms.map(alarm => ({
+            ...alarm,
+            weekdays: weekdayMap[alarm.setting_id] || []
+        }));
+
+        res.json(result);
+    } catch (err) {
+        console.error("アラーム一覧取得エラー:", err);
+        res.status(500).json({ error: "サーバーエラーが発生しました。" });
     }
-
-    await connection.commit();
-    res.status(201).json({ message: 'Alarm setting created', setting_id });
-
-  } catch (error) {
-    await connection.rollback();
-    console.error(error);
-    res.status(500).json({ error: 'Database error', details: error.message });
-  } finally {
-    connection.release();
-  }
 });
 
-// サーバー起動（3000ポート）
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+//アラーム削除処理
+router.delete("/delete/:id", async (req, res) => {
+    const settingId = req.params.id;
+
+    try {
+        await pool.promise().query(
+            "DELETE FROM alarm_settings WHERE setting_id = ?",
+            [settingId]
+        );
+
+        res.json({ message: "削除成功"});
+    } catch (err) {
+        console.error("削除エラー:", err);
+        res.status(500).json({error: "削除に失敗しました。"});
+    }
 });
+
+module.exports = router;

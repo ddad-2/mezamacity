@@ -54,17 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Fetch error:", err);
         }
     });
-});
 
-//テストユーザーでログイン
-document.getElementById('test-login-btn').addEventListener('click', () => {
-  const email = 'test@example.com';      // テストユーザーのメール
-  const password = 'testpass';           // テストユーザーのパスワード
+    // testボタン押下時にテストユーザー情報を自動入力してログイン処理を呼び出す
+  testBtn.addEventListener("click", () => {
+    document.getElementById("email").value = "test@example.com";
+    document.getElementById("password").value = "testpass";
 
-  // 自動でフォームに入力
-  document.getElementById('email').value = email;
-  document.getElementById('password').value = password;
-
-  // フォームを送信
-  document.getElementById('login-form').submit();
+    // submitイベントを発火してfetch送信をトリガーする
+    form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+  });
+  
 });

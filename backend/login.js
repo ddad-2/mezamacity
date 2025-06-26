@@ -29,9 +29,12 @@ router.post("/", (req, res) => {
             if (isMatch) {
                 // ログイン成功
                 console.log("ログイン成功:", user.user_name);
-                // 成功時のステータスコードを 200 OK に修正
-                // (201 Created は新規リソース作成時に使うのが一般的)
-                res.status(200).json({ message: "ログインに成功しました！", user: { username: user.user_name, email: user.email } });
+                res.status(200).json({
+                    message: "ログインに成功しました！",
+                    user: {
+                        user_id: user.user_id,
+                        username: user.user_name,
+                        email: user.email } });
             } else {
                 // パスワードが一致しない場合
                 return res.status(401).json({ error: "メールアドレスまたはパスワードが間違っています。" });
