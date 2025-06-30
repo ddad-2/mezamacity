@@ -37,12 +37,14 @@
     .building-factory {
       background-image: url('https://i.imgur.com/Q8Wqg6m.png');
     }
+    .tile-gray {
+      background-color: #ccc;
+    }
   `;
   document.head.appendChild(style);
 })();
 
 window.addEventListener('DOMContentLoaded', function() {
-  // --- ここからHTMLから移動したゲームロジック ---
   const grid = document.getElementById("grid");
   const moneyDisplay = document.getElementById("money");
   const populationDisplay = document.getElementById("population");
@@ -53,30 +55,48 @@ window.addEventListener('DOMContentLoaded', function() {
   const buildingCost = {
     house: 100,
     factory: 200,
-    gov: 300 // 役所のコスト
+    gov: 300
   };
 
   const populationIncrease = {
     house: 10,
     factory: 0,
-    gov: 0 // 役所の人口増加
+    gov: 0
   };
 
-  // 初期化 - タイル作成
-  const rows = 5;
-  const cols = 5;
-  const rowLabels = ["A", "B", "C", "D", "E"];
-  for (let i = 0; i < rows * cols; i++) {
-    const tile = document.createElement("div");
-    tile.classList.add("tile");
-    const row = Math.floor(i / cols);
-    const col = i % cols;
-    tile.id = `${rowLabels[row]}-${col + 1}`; // 例: A-1, A-2 ...
-    tile.addEventListener("click", () => build(tile));
-    grid.appendChild(tile);
+  // グリッド生成関数
+  function createGrid(rows, cols) {
+    grid.innerHTML = "";
+    const rowLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // 中心5x5の範囲を計算
+    const centerRowStart = Math.floor((rows - 5) / 2);
+    const centerColStart = Math.floor((cols - 5) / 2);
+    for (let i = 0; i < rows * cols; i++) {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      tile.id = `${rowLabels[row]}-${col + 1}`;
+      // 中心5x5以外は灰色
+      if (
+        row < centerRowStart ||
+        row >= centerRowStart + 5 ||
+        col < centerColStart ||
+        col >= centerColStart + 5
+      ) {
+        tile.classList.add("tile-gray");
+      }
+      tile.addEventListener("click", () => build(tile));
+      grid.appendChild(tile);
+    }
+    grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, 50px)`;
   }
 
-  // 建物選択状態
+  let currentRows = 11;
+  let currentCols = 11;
+  createGrid(currentRows, currentCols);
+
   let selectedBuilding = "house";
   document.getElementById("btn-house").onclick = function() {
     selectedBuilding = "house";
@@ -101,15 +121,16 @@ window.addEventListener('DOMContentLoaded', function() {
   setActiveButton("btn-house");
 
   function build(tile) {
+    // 灰色タイルには設置できないようにする
     if (
+      tile.classList.contains("tile-gray") ||
       tile.classList.contains("building-house") ||
       tile.classList.contains("building-factory") ||
       tile.classList.contains("building-gov")
     ) {
-      return; // 既に建物がある
+      return;
     }
 
-    // 建物タイプを選択（ボタンで選択されたものを使う）
     let buildingType = selectedBuilding;
     let imgSrc;
     if (buildingType === "gov") {
@@ -124,7 +145,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     if (money >= cost) {
       tile.classList.add(`building-${buildingType}`);
-      // 画像を追加
       const img = document.createElement("img");
       img.src = imgSrc;
       img.alt = buildingType;
@@ -144,4 +164,100 @@ window.addEventListener('DOMContentLoaded', function() {
     moneyDisplay.textContent = money;
     populationDisplay.textContent = population;
   }
+
+  // タイルサイズ設定
+  let tileSize = 50;
+  const minTileSize = 30;
+  const maxTileSize = 100;
+
+  function updateTileSize(size) {
+    grid.style.gridTemplateColumns = `repeat(${currentCols}, ${size}px)`;
+    grid.style.gridTemplateRows = `repeat(${currentRows}, ${size}px)`;
+    Array.from(grid.getElementsByClassName("tile")).forEach(tile => {
+      tile.style.width = `${size}px`;
+      tile.style.height = `${size}px`;
+    });
+  }
+
+  // 拡大縮小バー操作
+  const zoomRange = document.getElementById("tile-zoom-range");
+  const zoomInBtn = document.getElementById("tile-zoom-in");
+  const zoomOutBtn = document.getElementById("tile-zoom-out");
+
+  if (zoomRange) {
+    zoomRange.addEventListener("input", function() {
+      tileSize = parseInt(zoomRange.value, 10);
+      updateTileSize(tileSize);
+    });
+  }
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener("click", function() {
+      if (tileSize < maxTileSize) {
+        tileSize += 5;
+        if (tileSize > maxTileSize) tileSize = maxTileSize;
+        updateTileSize(tileSize);
+        if (zoomRange) zoomRange.value = tileSize;
+      }
+    });
+  }
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener("click", function() {
+      if (tileSize > minTileSize) {
+        tileSize -= 5;
+        if (tileSize < minTileSize) tileSize = minTileSize;
+        updateTileSize(tileSize);
+        if (zoomRange) zoomRange.value = tileSize;
+      }
+    });
+  }
+
+  // 拡大ボタン処理
+  const btnSpecial = document.getElementById("btn-special");
+  if (btnSpecial) {
+    btnSpecial.addEventListener("click", function() {
+      // 現在の緑タイル範囲を取得
+      const tiles = Array.from(document.querySelectorAll("#grid .tile"));
+      const rows = currentRows;
+      const cols = currentCols;
+      // 緑範囲を計算
+      let minRow = rows, maxRow = -1, minCol = cols, maxCol = -1;
+      tiles.forEach(tile => {
+        if (!tile.classList.contains("tile-gray")) {
+          const [rowLabel, colStr] = tile.id.split("-");
+          const row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(rowLabel);
+          const col = parseInt(colStr, 10) - 1;
+          if (row < minRow) minRow = row;
+          if (row > maxRow) maxRow = row;
+          if (col < minCol) minCol = col;
+          if (col > maxCol) maxCol = col;
+        }
+      });
+      // 拡張範囲
+      minRow = Math.max(0, minRow - 1);
+      maxRow = Math.min(rows - 1, maxRow + 1);
+      minCol = Math.max(0, minCol - 1);
+      maxCol = Math.min(cols - 1, maxCol + 1);
+      // 拡張範囲に含まれるタイルを緑に
+      tiles.forEach(tile => {
+        const [rowLabel, colStr] = tile.id.split("-");
+        const row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(rowLabel);
+        const col = parseInt(colStr, 10) - 1;
+        if (
+          row >= minRow && row <= maxRow &&
+          col >= minCol && col <= maxCol
+        ) {
+          tile.classList.remove("tile-gray");
+        }
+      });
+    });
+  }
 });
+
+// ログアウト処理（例）
+function logout() {
+  alert("ログアウトしました");
+  window.location.href = "login.html";
+}
+
+
+const theme = localStorage.getItem('theme') || 'dark'; // ← ここで初期値を暗くする

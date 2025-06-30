@@ -1,4 +1,4 @@
-/* リセットとベース設定 */
+/* リセット */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,26 +7,35 @@
 
 html {
   font-family: sans-serif;
-  background: #00FFFF;
+}
+
+/* ダークモード */
+body[data-theme="dark"] {
+  background: linear-gradient(#16213e, #1a1a2e);
   color: #fff;
 }
 
-/* ヘッダーとメインを縦に並べる */
+/* ライトモード */
+body[data-theme="light"] {
+  background: #fff;
+  color: #000;
+}
+
+/* ヘッダーとメイン縦並び */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: 0;
-  background: linear-gradient(#16213e, #1a1a2e); /* ← ここだけ変更 */
 }
 
 main {
   padding: 0;
+  flex-grow: 1;
 }
 
-/* メインコンテンツを中央寄せ */
+/* メインコンテンツ中央寄せ */
 .main-content-wrapper {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,18 +56,18 @@ main {
   display: grid;
   grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
-  gap: 0;
+  gap: 2px;
   justify-content: center;
   margin: 0 auto;
 }
 
-/* 各マスの見た目 */
+/* マスのスタイル */
 .tile {
   width: 50px;
   height: 50px;
   background-color: #4caf50;
   background-size: cover;
-  border: none;
+  border: 1px solid #333;
   cursor: pointer;
   transition: transform 0.1s;
 }
@@ -66,7 +75,13 @@ main {
   transform: scale(1.1);
 }
 
-/* 建物選択ボタンエリア */
+/* 灰色タイル */
+.tile-gray {
+  background-color: #888 !important;
+  opacity: 0.7;
+}
+
+/* 建物ボタンエリア */
 #building-buttons {
   display: flex;
   justify-content: center;
@@ -94,7 +109,9 @@ main {
   transition: outline 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
 
-.building-btn.active {
+/* 選択中のボタン */
+.building-btn.active,
+.building-btn:hover {
   outline: 4px solid #fff;
   box-shadow: 0 0 16px 4px #fff, 0 0 8px 2px #f5a623;
   opacity: 1;
@@ -103,7 +120,26 @@ main {
 
 /* 建物コスト表示 */
 #building-buttons .cost {
-  color: #fff;
+  color: inherit;
   font-size: 0.95em;
   margin-top: 4px;
+}
+
+
+
+
+
+
+
+/* デフォルト（ダークテーマ） */
+body {
+  background: linear-gradient(#16213e, #1a1a2e);
+  color: #fff;
+  font-family: sans-serif;
+}
+
+/* ライトテーマを使わないなら以下は削除または無効化 */
+body[data-theme="light"] {
+  /* background: #fff; ← 削除 */
+  /* color: #000; ← 削除 */
 }

@@ -21,35 +21,41 @@
 
   <footer>
   <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
-      <div class="icon">🏠</div>
-      <div class="label">ホーム</div>
-    </a>
-    <a href="../HTML/game.html" class="nav-item">
-      <div class="icon">📊</div>
-      <div class="label">育成画面</div>
-    </a>
-    <a href="../HTML/alarmConfimation.html" class="nav-item">
-      <div class="icon">⏰</div>
-      <div class="label">目覚まし設定</div>
-    </a>
-    <a href="settings.html" class="nav-item">
-      <div class="icon">⚙️</div>
-      <div class="label">設定</div>
-    </a>
-    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
-      <div class="icon">🔓</div>
-      <div class="label">ログアウト</div>
-    </button>
+    <!-- 言語対応のため data-en 属性を追加 -->
+<a href="../HTML/home.html" class="nav-item active" aria-current="page">
+  <div class="icon">🏠</div>
+  <div class="label" data-en="Home">ホーム</div>
+</a>
+<a href="../HTML/game.html" class="nav-item">
+  <div class="icon">📊</div>
+  <div class="label" data-en="Training">育成画面</div>
+</a>
+<a href="../HTML/alarmConfimation.html" class="nav-item">
+  <div class="icon">⏰</div>
+  <div class="label" data-en="Alarm Settings">目覚まし設定</div>
+</a>
+<a href="settings.html" class="nav-item">
+  <div class="icon">⚙️</div>
+  <div class="label" data-en="Settings">設定</div>
+</a>
+<button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
+  <div class="icon">🔓</div>
+  <div class="label" data-en="Logout">ログアウト</div>
+</button>
+
   </nav>
   </footer>
 
-   <a href="alarmRing.html" class="nav-item">
+  <!--<a href="alarmRing.html" class="nav-item">
     <button class="home">テスト</button>
-  </a>
+  </a>  -->
+
+   
   <script src="../SCRIPT/home.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="../SCRIPT/alarmRing.js"></script>
+  <script src="../SCRIPT/commonSetting.js"></script>
+
 
 
 </body>

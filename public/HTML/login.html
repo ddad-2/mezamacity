@@ -8,30 +8,32 @@
 </head>
 <body>
 
-<!-- テスト用ログイン -->
-<button type="button" id="test-login-btn">test</button>
+<!-- テスト用ログイン-->
 
+<button type="button" id="test-login-btn">test</button> 
   <div class="login-container">
-    <h1 class="game-title">メザマシティ</h1>
+    <h1 class="game-title" data-en="mezamacity">目覚まシティ</h1>
     <div class="login-panel">
-      <h2>ログイン</h2>
+      <h2 data-en="login">ログイン</h2>
       <!-- nodeに送る -->
       <form id="login-form" method="POST">
-        <label for="email">メールアドレス</label>
+        <label for="email" data-en="mailaddress">メールアドレス</label>
         <input type="text" id="email" name="email" required>
 
-        <label for="password">パスワード</label>
+        <label for="password" data-en="password">パスワード</label>
         <input type="password" id="password" name="password" required>
 
-        <button type="submit">ログイン</button>
+        <button type="submit" data-en="login">ログイン</button>
          <div class="signup-section">
         <div id="msg-box" class="msg-box"></div>
-        <p>初めての方はこちら</p>
-        <a href="register.html" class="signup-button">新規登録</a>
+        <p data-en="first person is this">初めての方はこちら</p>
+        <a href="register.html" class="signup-button" data-en="sign up">新規登録</a>
       </div>
       </form>
     </div>
   </div>
   <script src="../SCRIPT/login-client.js"></script>
+  <script src="../SCRIPT/commonSetting.js"></script>
+
 </body>
 </html>

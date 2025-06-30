@@ -105,3 +105,39 @@ body {
   letter-spacing: 0.1em;
   text-shadow: 0 0 8px #ffcc00, 0 0 2px #fff;
 }
+
+
+/* ライトモード用 時計色・背景など */
+body[data-theme="light"] {
+  background: linear-gradient(#ffffff, #f2f2f2);
+  color: #000;
+}
+
+body[data-theme="light"] .clock {
+  background: #fff;
+  border: 8px solid #333;
+}
+
+body[data-theme="light"] .digital-clock {
+  color: #333;
+  text-shadow: 0 0 4px #aaa;
+}
+
+body[data-theme="light"] .number {
+  color: #333;
+  text-shadow: none;
+}
+
+body[data-theme="light"] .hand {
+  background: #333;
+  box-shadow: none;
+}
+
+body[data-theme="light"] .second {
+  background: #d00;
+  box-shadow: none;
+}
+
+body[data-theme="light"] .center-dot {
+  background: #333;
+}

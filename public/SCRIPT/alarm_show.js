@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       if (!Array.isArray(data) || data.length === 0) {
-        document.querySelector(".list-container").innerHTML = "<h1 class=\"page-title\">アラーム一覧</h1><p>アラームが登録されていません。</p>";
+        document.querySelector(".list-container").innerHTML += "<p>アラームが登録されていません。</p>";
         return;
       }
 

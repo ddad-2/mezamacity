@@ -7,24 +7,81 @@
     <link rel="stylesheet" href="../CSS/game.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/footer.css" />
-    <script src="../SCRIPT/game.js"></script>
   </head>
-
   <body>
     <header>
-  <h1 class="header-title">ゲーム画面</h1>
-  <div class="header-right"></div> <!-- 空要素でバランスを取る -->
-</header>
-
+      <h1 class="header-title" data-en="game page">ゲーム画面</h1>
+      <div class="header-right"></div>
+    </header>
 
     <main>
       <div class="main-content-wrapper">
         <div id="stats">
-          💰 お金: <span id="money">1000</span> | 🏘️ 人口:
+          <span data-ja="💰 お金:" data-en="💰 Money:">💰 お金:</span>
+          <span id="money">1000</span>
+          |
+          <span data-ja="🏘️ 人口:" data-en="🏘️ Population:">🏘️ 人口:</span>
           <span id="population">0</span>
         </div>
 
-        <div id="grid"></div>
+        <div
+          id="grid-bar-wrapper"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+          "
+        >
+          <div id="grid"></div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              margin-top: 12px;
+              position: static;
+              background: rgba(22, 33, 62, 0.7);
+              border-radius: 12px;
+              padding: 8px 0;
+            "
+          >
+            <button
+              id="tile-zoom-out"
+              style="
+                width: 36px;
+                height: 36px;
+                font-size: 1.5em;
+                margin-right: 8px;
+              "
+            >
+              －
+            </button>
+            <input
+              type="range"
+              id="tile-zoom-range"
+              min="30"
+              max="100"
+              value="50"
+              step="1"
+              style="width: 120px; margin: 0 8px"
+            />
+            <button
+              id="tile-zoom-in"
+              style="
+                width: 36px;
+                height: 36px;
+                font-size: 1.5em;
+                margin-left: 8px;
+              "
+            >
+              ＋
+            </button>
+          </div>
+        </div>
 
         <div id="building-buttons">
           <div>
@@ -32,6 +89,8 @@
               id="btn-house"
               class="building-btn"
               style="background: #f5a623"
+              data-ja="家"
+              data-en="House"
             >
               家
             </button>
@@ -42,6 +101,8 @@
               id="btn-factory"
               class="building-btn"
               style="background: #7ed321"
+              data-ja="工場"
+              data-en="Factory"
             >
               工場
             </button>
@@ -52,38 +113,73 @@
               id="btn-gov"
               class="building-btn"
               style="background: #4a90e2"
+              data-ja="役所"
+              data-en="Government"
             >
               役所
             </button>
             <div class="cost">必要: 300</div>
           </div>
         </div>
+
+        <div
+          style="
+            margin: 32px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          <button
+            id="btn-special"
+            class="building-btn"
+            style="background: #e94e77; width: 220px; font-size: 1.2em"
+            data-ja="拡大"
+            data-en="Expand"
+          >
+            拡大
+          </button>
+          <div class="cost">必要: 1000</div>
+        </div>
       </div>
     </main>
 
     <footer>
-  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
-      <div class="icon">🏠</div>
-      <div class="label">ホーム</div>
-    </a>
-    <a href="../HTML/game.html" class="nav-item">
-      <div class="icon">📊</div>
-      <div class="label">育成画面</div>
-    </a>
-    <a href="../HTML/alarmConfimation.html" class="nav-item">
-      <div class="icon">⏰</div>
-      <div class="label">目覚まし設定</div>
-    </a>
-    <a href="settings.html" class="nav-item">
-      <div class="icon">⚙️</div>
-      <div class="label">設定</div>
-    </a>
-    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
-      <div class="icon">🔓</div>
-      <div class="label">ログアウト</div>
-    </button>
-  </nav>
-  </footer>
+      <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
+        <a
+          href="../HTML/home.html"
+          class="nav-item active"
+          aria-current="page"
+        >
+          <div class="icon">🏠</div>
+          <div class="label" data-en="Home">ホーム</div>
+        </a>
+        <a href="../HTML/game.html" class="nav-item">
+          <div class="icon">📊</div>
+          <div class="label" data-en="Training">育成画面</div>
+        </a>
+        <a href="../HTML/alarmConfimation.html" class="nav-item">
+          <div class="icon">⏰</div>
+          <div class="label" data-en="Alarm Settings">目覚まし設定</div>
+        </a>
+        <a href="setting.html" class="nav-item">
+          <div class="icon">⚙️</div>
+          <div class="label" data-en="Settings">設定</div>
+        </a>
+        <button
+          class="nav-item"
+          onclick="logout()"
+          style="border: none; background: none; color: #bbb"
+        >
+          <div class="icon">🔓</div>
+          <div class="label" data-en="Logout">ログアウト</div>
+        </button>
+      </nav>
+    </footer>
+
+    <!-- 共通設定スクリプト（テーマ・フォント・多言語対応） -->
+    <script src="../SCRIPT/commonSetting.js"></script>
+    <!-- ゲームロジック -->
+    <script src="../SCRIPT/game.js"></script>
   </body>
 </html>

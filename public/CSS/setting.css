@@ -5,34 +5,29 @@
   padding: 0;
 }
 
-/* 全体の背景やフォントなど */
+/* 背景・フォント・全体レイアウト */
 body {
   background: linear-gradient(#1a1a2e, #16213e);
   font-family: 'Press Start 2P', cursive;
   color: #fff;
   min-height: 100vh;
-  padding-bottom: 80px; /* フッターとの重なり防止 */
+  padding-bottom: 80px;
 }
 
-/* 全体ラップ */
 .page-wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* メインコンテンツ */
 .main-content-wrapper {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 80px;
+  padding: 40px 20px 80px;
 }
 
-/* 中央の設定フォーム全体 */
 .login-container {
   background: rgba(255, 255, 255, 0.1);
   border: 3px solid #00f0ff;
@@ -49,7 +44,6 @@ body {
   margin-bottom: 30px;
 }
 
-/* 各設定項目グループ */
 .setting-group {
   margin-bottom: 20px;
   color: #00f0ff;
@@ -61,7 +55,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* セレクトボックス共通 */
 select {
   width: 100%;
   padding: 12px;
@@ -72,14 +65,11 @@ select {
   border: none;
   font-size: 0.9em;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
 }
 
-/* ボタン全体のラップ */
 .account-actions {
   display: flex;
   flex-direction: column;
@@ -87,33 +77,68 @@ select {
   margin-top: 30px;
 }
 
-/* ボタン共通 */
 button {
   width: 100%;
   padding: 15px;
   border-radius: 10px;
   border: none;
   font-family: 'Press Start 2P', cursive;
-  font-size: 0.95em;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
 
-/* 保存するボタン */
 .primary-button {
   background-color: #3b45f7;
   color: white;
 }
+
 .primary-button:hover {
   background-color: #2d35c6;
 }
 
-/* アカウント削除ボタン */
 .danger-button {
   background-color: #f51a1a;
   color: white;
 }
+
 .danger-button:hover {
   background-color: #c91414;
 }
+
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #222;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 15px #00f0ff;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.modal-content button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
