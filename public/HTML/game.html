@@ -34,8 +34,21 @@
             position: relative;
           "
         >
-          <div id="grid"></div>
-
+          <!-- 固定サイズの外枠を追加 -->
+          <div
+            id="grid-fixed-wrapper"
+            style="
+              width: 400px;
+              height: 400px;
+              overflow: auto;
+              border: 2px solid #444;
+              border-radius: 8px;
+              background: #222;
+            "
+          >
+            <div id="grid"></div>
+          </div>
+          <!-- 拡大縮小バーを下側・＋－ボタンに変更 -->
           <div
             style="
               display: flex;
@@ -145,12 +158,12 @@
     </main>
 
     <footer>
-      <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-        <a
-          href="../HTML/home.html"
-          class="nav-item active"
-          aria-current="page"
-        >
+      <nav
+        class="bottom-nav"
+        role="navigation"
+        aria-label="メインナビゲーション"
+      >
+        <a href="../HTML/home.html" class="nav-item active" aria-current="page">
           <div class="icon">🏠</div>
           <div class="label" data-en="Home">ホーム</div>
         </a>
@@ -177,8 +190,6 @@
       </nav>
     </footer>
 
-    <!-- 共通設定スクリプト（テーマ・フォント・多言語対応） -->
-    <script src="../SCRIPT/commonSetting.js"></script>
     <!-- ゲームロジック -->
     <script src="../SCRIPT/game.js"></script>
   </body>

@@ -125,21 +125,29 @@ main {
   margin-top: 4px;
 }
 
-
-
-
-
-
-
 /* デフォルト（ダークテーマ） */
 body {
-  background: linear-gradient(#16213e, #1a1a2e);
-  color: #fff;
-  font-family: sans-serif;
+  /* 他のスタイルに background-color があると JSの色が反映されない */
+  /* もしここに background-color があれば、削除か transitionだけ残す */
+  transition: background-color 0.5s ease;
 }
 
-/* ライトテーマを使わないなら以下は削除または無効化 */
+
+/* ライトテーマを使わないなら以下は削除または無効化 
 body[data-theme="light"] {
-  /* background: #fff; ← 削除 */
+  /background: #fff; ← 削除 */
   /* color: #000; ← 削除 */
+
+
+#grid-fixed-wrapper {
+  width: 550px;
+  height: 550px;
+  overflow: auto;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background: #222;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -106,8 +106,6 @@ button {
   background-color: #c91414;
 }
 
-
-
 .modal {
   position: fixed;
   top: 0;
@@ -141,4 +139,3 @@ button {
 .hidden {
   display: none;
 }
-

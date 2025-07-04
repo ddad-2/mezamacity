@@ -1,62 +1,83 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>目覚まシティ</title>
-  <link rel="stylesheet" href="../CSS/home.css" />
-  <link rel="stylesheet" href="../CSS/footer.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目覚まシティ</title>
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/footer.css" />
+  </head>
+  <body>
+    <div
+      class="clock"
+      aria-label="アナログ時計"
+      role="img"
+      aria-live="polite"
+      id="clock"
+    >
+      <div class="hand hour" id="hour-hand"></div>
+      <div class="hand minute" id="minute-hand"></div>
+      <div class="hand second" id="second-hand"></div>
+      <div class="center-dot"></div>
+      <!-- 数字はここにJSで配置 -->
+    </div>
 
-  <div class="clock" aria-label="アナログ時計" role="img" aria-live="polite" id="clock">
-    <div class="hand hour" id="hour-hand"></div>
-    <div class="hand minute" id="minute-hand"></div>
-    <div class="hand second" id="second-hand"></div>
-    <div class="center-dot"></div>
-    <!-- 数字はここにJSで配置 -->
-  </div>
+    <div
+      class="digital-clock"
+      id="digital-clock"
+      aria-label="デジタル時計"
+      role="status"
+    ></div>
 
-  <div class="digital-clock" id="digital-clock" aria-label="デジタル時計" role="status"></div>
+    <footer>
+      <nav
+        class="bottom-nav"
+        role="navigation"
+        aria-label="メインナビゲーション"
+      >
+        <!-- 言語対応のため data-en 属性を追加 -->
+        <a href="../HTML/home.html" class="nav-item active" aria-current="page">
+          <div class="icon">🏠</div>
+          <div class="label" data-en="Home">ホーム</div>
+        </a>
+        <a href="../HTML/game.html" class="nav-item">
+          <div class="icon">📊</div>
+          <div class="label" data-en="Training">育成画面</div>
+        </a>
+        <a href="../HTML/alarmConfimation.html" class="nav-item">
+          <div class="icon">⏰</div>
+          <div class="label" data-en="Alarm Settings">目覚まし設定</div>
+        </a>
+        <a href="setting.html" class="nav-item">
+          <div class="icon">⚙️</div>
+          <div class="label" data-en="Settings">設定</div>
+        </a>
+        <button
+          class="nav-item"
+          onclick="logout()"
+          style="border: none; background: none; color: #bbb"
+        >
+          <div class="icon">🔓</div>
+          <div class="label" data-en="Logout">ログアウト</div>
+        </button>
+      </nav>
+    </footer>
 
-  <footer>
-  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-    <!-- 言語対応のため data-en 属性を追加 -->
-<a href="../HTML/home.html" class="nav-item active" aria-current="page">
-  <div class="icon">🏠</div>
-  <div class="label" data-en="Home">ホーム</div>
-</a>
-<a href="../HTML/game.html" class="nav-item">
-  <div class="icon">📊</div>
-  <div class="label" data-en="Training">育成画面</div>
-</a>
-<a href="../HTML/alarmConfimation.html" class="nav-item">
-  <div class="icon">⏰</div>
-  <div class="label" data-en="Alarm Settings">目覚まし設定</div>
-</a>
-<a href="settings.html" class="nav-item">
-  <div class="icon">⚙️</div>
-  <div class="label" data-en="Settings">設定</div>
-</a>
-<button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
-  <div class="icon">🔓</div>
-  <div class="label" data-en="Logout">ログアウト</div>
-</button>
-
-  </nav>
-  </footer>
-
-  <!--<a href="alarmRing.html" class="nav-item">
+    <!--<a href="alarmRing.html" class="nav-item">
     <button class="home">テスト</button>
   </a>  -->
 
-   
-  <script src="../SCRIPT/home.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="../SCRIPT/alarmRing.js"></script>
-  <script src="../SCRIPT/commonSetting.js"></script>
+    <script src="../SCRIPT/home.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../SCRIPT/alarmRing.js"></script>
+    <script src="../SCRIPT/commonSetting.js"></script>
 
-
-
-</body>
+    <div class="train-track">
+      <img
+        src="https://i.postimg.cc/2bcc3Qjy/imgsrc.png"
+        alt=""
+        class="steam-train"
+      />
+    </div>
+  </body>
 </html>

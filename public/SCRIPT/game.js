@@ -1,11 +1,12 @@
 // game.js - ゲーム画面用スタイルをJSで適用
-(function() {
+(function () {
   const style = document.createElement('style');
   style.textContent = `
     body {
       font-family: sans-serif;
       text-align: center;
       padding: 0px;
+      transition: background-color 0.5s ease;
     }
     #stats {
       margin-bottom: 10px;
@@ -44,7 +45,7 @@
   document.head.appendChild(style);
 })();
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
   const grid = document.getElementById("grid");
   const moneyDisplay = document.getElementById("money");
   const populationDisplay = document.getElementById("population");
@@ -64,30 +65,28 @@ window.addEventListener('DOMContentLoaded', function() {
     gov: 0
   };
 
-  // グリッド生成関数
   function createGrid(rows, cols) {
     grid.innerHTML = "";
-    const rowLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // 中心5x5の範囲を計算
-    const centerRowStart = Math.floor((rows - 5) / 2);
-    const centerColStart = Math.floor((cols - 5) / 2);
-    for (let i = 0; i < rows * cols; i++) {
-      const tile = document.createElement("div");
-      tile.classList.add("tile");
-      const row = Math.floor(i / cols);
-      const col = i % cols;
-      tile.id = `${rowLabels[row]}-${col + 1}`;
-      // 中心5x5以外は灰色
-      if (
-        row < centerRowStart ||
-        row >= centerRowStart + 5 ||
-        col < centerColStart ||
-        col >= centerColStart + 5
-      ) {
-        tile.classList.add("tile-gray");
+    // 左上を(0,0)として設置
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.id = `${row}.${col}`; // 左上が0.0
+        // 中心5x5以外は灰色
+        const centerRowStart = Math.floor((rows - 5) / 2);
+        const centerColStart = Math.floor((cols - 5) / 2);
+        if (
+          row < centerRowStart ||
+          row >= centerRowStart + 5 ||
+          col < centerColStart ||
+          col >= centerColStart + 5
+        ) {
+          tile.classList.add("tile-gray");
+        }
+        tile.addEventListener("click", () => build(tile));
+        grid.appendChild(tile);
       }
-      tile.addEventListener("click", () => build(tile));
-      grid.appendChild(tile);
     }
     grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
     grid.style.gridTemplateRows = `repeat(${rows}, 50px)`;
@@ -98,15 +97,15 @@ window.addEventListener('DOMContentLoaded', function() {
   createGrid(currentRows, currentCols);
 
   let selectedBuilding = "house";
-  document.getElementById("btn-house").onclick = function() {
+  document.getElementById("btn-house").onclick = function () {
     selectedBuilding = "house";
     setActiveButton("btn-house");
   };
-  document.getElementById("btn-factory").onclick = function() {
+  document.getElementById("btn-factory").onclick = function () {
     selectedBuilding = "factory";
     setActiveButton("btn-factory");
   };
-  document.getElementById("btn-gov").onclick = function() {
+  document.getElementById("btn-gov").onclick = function () {
     selectedBuilding = "gov";
     setActiveButton("btn-gov");
   };
@@ -118,10 +117,10 @@ window.addEventListener('DOMContentLoaded', function() {
       btn.style.opacity = (id === activeId) ? "1" : "0.7";
     });
   }
+
   setActiveButton("btn-house");
 
   function build(tile) {
-    // 灰色タイルには設置できないようにする
     if (
       tile.classList.contains("tile-gray") ||
       tile.classList.contains("building-house") ||
@@ -165,8 +164,7 @@ window.addEventListener('DOMContentLoaded', function() {
     populationDisplay.textContent = population;
   }
 
-  // タイルサイズ設定
-  let tileSize = 50;
+  let tileSize = 30; // 初期値を最小値に
   const minTileSize = 30;
   const maxTileSize = 100;
 
@@ -179,19 +177,44 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // スクロール位置を記憶する変数 (この変数は現在未使用ですが、将来的な機能拡張のために残しておいても良いでしょう)
+  let lastScrollLeft = 0;
+  let lastScrollTop = 0;
+
   // 拡大縮小バー操作
   const zoomRange = document.getElementById("tile-zoom-range");
   const zoomInBtn = document.getElementById("tile-zoom-in");
   const zoomOutBtn = document.getElementById("tile-zoom-out");
+  const gridWrapper = document.getElementById("grid-fixed-wrapper");
+
+  // 初期表示時に最小サイズで表示
+  updateTileSize(tileSize);
+  if (zoomRange) {
+    zoomRange.value = tileSize;
+  }
+  // スクロールバーの初期位置を左上に
+  if (gridWrapper) {
+    gridWrapper.scrollLeft = 0;
+    gridWrapper.scrollTop = 0;
+  }
+
+   function scrollToLeftTop() {
+  if (gridWrapper) {
+     gridWrapper.scrollLeft = 0;
+       gridWrapper.scrollTop = 0;
+     }
+   }
 
   if (zoomRange) {
-    zoomRange.addEventListener("input", function() {
+    zoomRange.addEventListener("input", function () {
       tileSize = parseInt(zoomRange.value, 10);
       updateTileSize(tileSize);
+      // スクロール位置は維持（左上が見える）
     });
   }
+
   if (zoomInBtn) {
-    zoomInBtn.addEventListener("click", function() {
+    zoomInBtn.addEventListener("click", function () {
       if (tileSize < maxTileSize) {
         tileSize += 5;
         if (tileSize > maxTileSize) tileSize = maxTileSize;
@@ -200,8 +223,9 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
   if (zoomOutBtn) {
-    zoomOutBtn.addEventListener("click", function() {
+    zoomOutBtn.addEventListener("click", function () {
       if (tileSize > minTileSize) {
         tileSize -= 5;
         if (tileSize < minTileSize) tileSize = minTileSize;
@@ -211,15 +235,12 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // 拡大ボタン処理
   const btnSpecial = document.getElementById("btn-special");
   if (btnSpecial) {
-    btnSpecial.addEventListener("click", function() {
-      // 現在の緑タイル範囲を取得
+    btnSpecial.addEventListener("click", function () {
       const tiles = Array.from(document.querySelectorAll("#grid .tile"));
       const rows = currentRows;
       const cols = currentCols;
-      // 緑範囲を計算
       let minRow = rows, maxRow = -1, minCol = cols, maxCol = -1;
       tiles.forEach(tile => {
         if (!tile.classList.contains("tile-gray")) {
@@ -232,12 +253,10 @@ window.addEventListener('DOMContentLoaded', function() {
           if (col > maxCol) maxCol = col;
         }
       });
-      // 拡張範囲
       minRow = Math.max(0, minRow - 1);
       maxRow = Math.min(rows - 1, maxRow + 1);
       minCol = Math.max(0, minCol - 1);
       maxCol = Math.min(cols - 1, maxCol + 1);
-      // 拡張範囲に含まれるタイルを緑に
       tiles.forEach(tile => {
         const [rowLabel, colStr] = tile.id.split("-");
         const row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(rowLabel);
@@ -249,15 +268,51 @@ window.addEventListener('DOMContentLoaded', function() {
           tile.classList.remove("tile-gray");
         }
       });
+
+      // --- スクロール位置を中心にする ---
+      const wrapper = document.getElementById("grid-fixed-wrapper");
+      if (wrapper && grid) {
+        // グリッド全体のサイズを取得
+        const gridWidth = grid.scrollWidth;
+        const gridHeight = grid.scrollHeight;
+        const wrapperWidth = wrapper.clientWidth;
+        const wrapperHeight = wrapper.clientHeight;
+        // スクロール位置を中央へ
+        wrapper.scrollLeft = (gridWidth - wrapperWidth) / 2;
+        wrapper.scrollTop = (gridHeight - wrapperHeight) / 2;
+      }
+      // --- ここまで ---
     });
   }
+
+  // テーマ属性をリセット
+  document.body.removeAttribute('data-theme');
 });
 
-// ログアウト処理（例）
+// ログアウト処理
 function logout() {
   alert("ログアウトしました");
   window.location.href = "login.html";
 }
 
+// ============================
+// 🌞 時間帯で背景色を変える処理
+// ============================
+function setBackgroundColorByTime() {
+  const hour = new Date().getHours();
+  let bgColor;
 
-const theme = localStorage.getItem('theme') || 'dark'; // ← ここで初期値を暗くする
+  if (hour >= 5 && hour < 10) {
+    bgColor = "#FFFAE3";  // 朝
+  } else if (hour >= 10 && hour < 17) {
+    bgColor = "#E3F2FD";  // 昼
+  } else if (hour >= 17 && hour < 19) {
+    bgColor = "#FFE0B2";  // 夕方
+  } else {
+    bgColor = "#263238";  // 夜
+  }
+
+  document.body.style.setProperty('background-color', bgColor, 'important');
+}
+
+window.addEventListener('DOMContentLoaded', setBackgroundColorByTime);
