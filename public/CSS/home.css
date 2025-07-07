@@ -155,6 +155,41 @@ body[data-theme="light"] .center-dot {
   bottom: 0;
   left: -150px; /* 開始位置（画面外） */
   width: 120px; /* 好きなサイズ */
+<<<<<<< HEAD
+  animation: moveLeft 10s linear infinite;
+}
+
+body {
+  margin: 0;
+
+}
+
+.train-track {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;/
+}
+
+.train-track {
+  margin-top: 250px; /* 上に50pxの余白 */
+  /* または */
+  padding-top: 50px;
+  width: 100%;
+  height: auto;
+  background: transparent;
+  text-align: center;
+}
+
+.steam-train {
+  width: 500px; /* 好きな横幅 */
+  height: 150px;
+  position: static;
+  animation: none;
+  display: inline-block;
+  transform: none;
+  margin: 0 auto;
+=======
   animation: trainMove 0.02s linear infinite;
 }
 
@@ -166,4 +201,5 @@ body[data-theme="light"] .center-dot {
   100% {
     left: 100%;
   }
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
 }

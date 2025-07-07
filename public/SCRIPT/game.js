@@ -14,11 +14,8 @@
     }
     #grid {
       display: grid;
-      grid-template-columns: repeat(5, 50px);
-      grid-template-rows: repeat(5, 50px);
       gap: 2px;
-      justify-content: center;
-      margin: 0 auto;
+      transform-origin: 0 0;
     }
     .tile {
       width: 50px;
@@ -49,9 +46,13 @@ window.addEventListener('DOMContentLoaded', function () {
   const grid = document.getElementById("grid");
   const moneyDisplay = document.getElementById("money");
   const populationDisplay = document.getElementById("population");
+  const gridWrapper = document.getElementById("grid-fixed-wrapper");
 
   let money = 1000;
   let population = 0;
+  // 仮のuser_idとcity_id。実際にはログイン情報などから取得してください。
+  const currentUserId = 1; // 仮のユーザーID
+  const currentCityId = 1; // 仮の都市ID
 
   const buildingCost = {
     house: 100,
@@ -65,15 +66,38 @@ window.addEventListener('DOMContentLoaded', function () {
     gov: 0
   };
 
+<<<<<<< HEAD
+  // **建物の種類とbuilding_idのマッピング**
+  // buildingsテーブルの内容に合わせて正確に設定してください。
+  const buildingTypeToId = {
+    house: 1,
+    factory: 2,
+    gov: 3
+  };
+
+  const fixedTileSize = 50;
+  let currentRows = 11;
+  let currentCols = 11;
+  const gap = 2; // CSSのgap値と合わせる
+
+  function createGrid(rows, cols) {
+    grid.innerHTML = "";
+=======
   function createGrid(rows, cols) {
     grid.innerHTML = "";
     // 左上を(0,0)として設置
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
         const tile = document.createElement("div");
         tile.classList.add("tile");
+<<<<<<< HEAD
+        tile.id = `${row}.${col}`;
+
+=======
         tile.id = `${row}.${col}`; // 左上が0.0
         // 中心5x5以外は灰色
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
         const centerRowStart = Math.floor((rows - 5) / 2);
         const centerColStart = Math.floor((cols - 5) / 2);
         if (
@@ -88,12 +112,47 @@ window.addEventListener('DOMContentLoaded', function () {
         grid.appendChild(tile);
       }
     }
+<<<<<<< HEAD
+    grid.style.gridTemplateColumns = `repeat(${cols}, ${fixedTileSize}px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, ${fixedTileSize}px)`;
+
+    adjustGridScaleAndPosition(5, 5); // 初期表示時は(5,5)タイルを中心にする
+  }
+
+  // グリッドのスケールと位置を調整する関数
+  function adjustGridScaleAndPosition(targetTileX, targetTileY) {
+    if (gridWrapper && grid) {
+      const gridContentWidth = currentCols * fixedTileSize + (currentCols - 1) * gap;
+      const gridContentHeight = currentRows * fixedTileSize + (currentRows - 1) * gap;
+
+      const wrapperWidth = gridWrapper.clientWidth;
+      const wrapperHeight = gridWrapper.clientHeight;
+
+      const scaleX = wrapperWidth / gridContentWidth;
+      const scaleY = wrapperHeight / gridContentHeight;
+      const scale = Math.min(scaleX, scaleY);
+
+      const targetPixelCenterX = targetTileX * (fixedTileSize + gap) + fixedTileSize / 2;
+      const targetPixelCenterY = targetTileY * (fixedTileSize + gap) + fixedTileSize / 2;
+
+      const wrapperCenterX = wrapperWidth / 2;
+      const wrapperCenterY = wrapperHeight / 2;
+
+      const translateX = wrapperCenterX - (targetPixelCenterX * scale);
+      const translateY = wrapperCenterY - (targetPixelCenterY * scale);
+
+      grid.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+  }
+
+=======
     grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
     grid.style.gridTemplateRows = `repeat(${rows}, 50px)`;
   }
 
   let currentRows = 11;
   let currentCols = 11;
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
   createGrid(currentRows, currentCols);
 
   let selectedBuilding = "house";
@@ -154,6 +213,20 @@ window.addEventListener('DOMContentLoaded', function () {
       money -= cost;
       population += popInc;
       updateStats();
+
+      // --- **データベース保存処理の呼び出し** ---
+      const [rowStr, colStr] = tile.id.split('.');
+      const x_coordinate = parseInt(colStr, 10); // x_coordinate は列 (col)
+      const y_coordinate = parseInt(rowStr, 10); // y_coordinate は行 (row)
+      const building_id = buildingTypeToId[buildingType];
+
+      if (building_id) {
+        saveBuildingToDatabase(currentCityId, building_id, x_coordinate, y_coordinate);
+      } else {
+        console.error("Unknown building type or missing building_id mapping:", buildingType);
+      }
+      // --- ここまで ---
+
     } else {
       alert("お金が足りません！");
     }
@@ -164,6 +237,47 @@ window.addEventListener('DOMContentLoaded', function () {
     populationDisplay.textContent = population;
   }
 
+<<<<<<< HEAD
+  // --- **データベース保存用の関数** ---
+  function saveBuildingToDatabase(cityId, buildingId, x, y) {
+    // 実際には、サーバーサイドのエンドポイントにデータを送信します。
+    // 例: fetch APIを使用
+    fetch('../api/save_building.php', { // **サーバーサイドのスクリプトのパスを適切に設定してください**
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            city_id: cityId,
+            building_id: buildingId,
+            x_coordinate: x,
+            y_coordinate: y
+        }),
+    })
+    .then(response => {
+        // HTTPステータスが200番台以外の場合もエラーとして処理
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.message || 'サーバーエラーが発生しました');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            console.log('建物がデータベースに保存されました:', data.message);
+            // 成功時の追加処理があればここに追加
+        } else {
+            console.error('建物の保存に失敗しました:', data.message);
+        }
+    })
+    .catch((error) => {
+        console.error('建物の保存中にネットワークまたはサーバーエラーが発生しました:', error);
+        alert('建物の保存に失敗しました。ネットワーク接続を確認してください。'); // ユーザーへのフィードバック
+    });
+  }
+  // --- ここまで ---
+=======
   let tileSize = 30; // 初期値を最小値に
   const minTileSize = 30;
   const maxTileSize = 100;
@@ -234,6 +348,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
 
   const btnSpecial = document.getElementById("btn-special");
   if (btnSpecial) {
@@ -243,10 +358,18 @@ window.addEventListener('DOMContentLoaded', function () {
       const cols = currentCols;
       let minRow = rows, maxRow = -1, minCol = cols, maxCol = -1;
       tiles.forEach(tile => {
+<<<<<<< HEAD
+        const [rowStr, colStr] = tile.id.split(".");
+        const row = parseInt(rowStr, 10);
+        const col = parseInt(colStr, 10);
+
+        if (!tile.classList.contains("tile-gray")) {
+=======
         if (!tile.classList.contains("tile-gray")) {
           const [rowLabel, colStr] = tile.id.split("-");
           const row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(rowLabel);
           const col = parseInt(colStr, 10) - 1;
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
           if (row < minRow) minRow = row;
           if (row > maxRow) maxRow = row;
           if (col < minCol) minCol = col;
@@ -258,9 +381,16 @@ window.addEventListener('DOMContentLoaded', function () {
       minCol = Math.max(0, minCol - 1);
       maxCol = Math.min(cols - 1, maxCol + 1);
       tiles.forEach(tile => {
+<<<<<<< HEAD
+        const [rowStr, colStr] = tile.id.split(".");
+        const row = parseInt(rowStr, 10);
+        const col = parseInt(colStr, 10);
+
+=======
         const [rowLabel, colStr] = tile.id.split("-");
         const row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(rowLabel);
         const col = parseInt(colStr, 10) - 1;
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
         if (
           row >= minRow && row <= maxRow &&
           col >= minCol && col <= maxCol
@@ -269,6 +399,9 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       });
 
+<<<<<<< HEAD
+      adjustGridScaleAndPosition(5, 5); // グレータイル解除後も(5,5)タイルを中心にする
+=======
       // --- スクロール位置を中心にする ---
       const wrapper = document.getElementById("grid-fixed-wrapper");
       if (wrapper && grid) {
@@ -282,6 +415,7 @@ window.addEventListener('DOMContentLoaded', function () {
         wrapper.scrollTop = (gridHeight - wrapperHeight) / 2;
       }
       // --- ここまで ---
+>>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
     });
   }
 
