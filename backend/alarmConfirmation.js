@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const userId = localStorage.getItem("user_id");
 
+  // if (!userId) {
+  //   alert("ログインしてください");
+  //   window.location.href = "login.html";
+  //   return;
+  // }
+
   fetch(`/alarm/list/${userId}`)
     .then(res => res.json())
     .then(data => {
@@ -37,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch(`/alarm/delete/${id}`, { method: "DELETE" })
               .then(res => res.json())
               .then(result => {
-                alert("アラームを削除しました");
+                //alert("アラームを削除しました");
                 location.reload();
               });
           }
