@@ -1,71 +1,75 @@
 <!-- alarmRing.html -->
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>アラームが鳴っています</title>
-  <link rel="stylesheet" href="../CSS/alarmRing.css" />
-  <style>
-    .weather-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 10px 20px;
-      margin: 20px auto;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      color: #333;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-    }
-  </style>
-</head>
-<body>
-  <div class="alarm-ring-container">
-    <h1>⏰ アラーム中！</h1>
-    <div class="alarm-time" id="current-time">07:00</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>アラームが鳴っています</title>
+    <link rel="stylesheet" href="../CSS/alarmRing.css" />
+    <style>
+      .weather-box {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        color: #333;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="alarm-ring-container">
+      <h1>⏰ アラーム中！</h1>
+      <div class="alarm-time" id="current-time">07:00</div>
 
-    <button class="stop-btn" onclick="stopAlarm()">アラームを止める</button>
-    <button class="snooze-btn" onclick="snoozeAlarm()">スヌーズ（5分）</button>
+      <button class="stop-btn" onclick="stopAlarm()">アラームを止める</button>
+      <button class="snooze-btn" onclick="snoozeAlarm()">
+        スヌーズ（5分）
+      </button>
 
-    <!-- YouTube埋め込み（音源） -->
-    <iframe
-      id="alarm-sound"
-      src="https://www.youtube.com/embed/o6wtDPVkKqI?autoplay=1&loop=1&playlist=o6wtDPVkKqI"
-      allow="autoplay"
-      style="width: 1px; height: 1px; position: absolute; left: -9999px;"
-    ></iframe>
+      <!-- YouTube埋め込み（音源） -->
+      <iframe
+        id="alarm-sound"
+        src="https://www.youtube.com/embed/o6wtDPVkKqI?autoplay=1&loop=1&playlist=o6wtDPVkKqI"
+        allow="autoplay"
+        style="width: 1px; height: 1px; position: absolute; left: -9999px"
+      ></iframe>
 
-    <!-- 🟡 天気情報表示ブロック -->
-    <div id="weather-info" class="weather-box" aria-label="天気情報" role="region">
-      天気を取得中...
+      <!-- 🟡 天気情報表示ブロック -->
+      <div
+        id="weather-info"
+        class="weather-box"
+        aria-label="天気情報"
+        role="region"
+      >
+        天気を取得中...
+      </div>
     </div>
-  </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="../SCRIPT/alarmRing.js"></script>
-  <script src="../SCRIPT/commonSetting.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../SCRIPT/alarmRing.js"></script>
+    <script src="../SCRIPT/commonSetting.js"></script>
 
-<<<<<<< HEAD
-  <!-- 🟢 天気取得スクリプト -->
-  <script>
-    fetch("http://localhost:3000/weather")
-      .then(response => response.json())
-      .then(data => {
-        const weatherDiv = document.getElementById("weather-info");
-        weatherDiv.innerHTML = `
+    <!-- 🟢 天気取得スクリプト -->
+    <script>
+      fetch("http://localhost:3000/weather")
+        .then((response) => response.json())
+        .then((data) => {
+          const weatherDiv = document.getElementById("weather-info");
+          weatherDiv.innerHTML = `
           <p>🌤️ <strong>${data.city}</strong> の天気</p>
           <p>気温：${data.temp}℃</p>
           <p>状況：${data.weather}</p>
         `;
-      })
-      .catch(error => {
-        const weatherDiv = document.getElementById("weather-info");
-        weatherDiv.textContent = "天気情報の取得に失敗しました。";
-        console.error("天気APIエラー:", error);
-      });
-  </script>
-=======
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
-</body>
+        })
+        .catch((error) => {
+          const weatherDiv = document.getElementById("weather-info");
+          weatherDiv.textContent = "天気情報の取得に失敗しました。";
+          console.error("天気APIエラー:", error);
+        });
+    </script>
+  </body>
 </html>

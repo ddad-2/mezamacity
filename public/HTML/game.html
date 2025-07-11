@@ -34,20 +34,12 @@
             position: relative;
           "
         >
-<<<<<<< HEAD
-=======
-          <!-- 固定サイズの外枠を追加 -->
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
           <div
             id="grid-fixed-wrapper"
             style="
               width: 400px;
               height: 400px;
-<<<<<<< HEAD
               /* overflow: auto; */ /* この行を削除 */
-=======
-              overflow: auto;
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
               border: 2px solid #444;
               border-radius: 8px;
               background: #222;
@@ -55,57 +47,7 @@
           >
             <div id="grid"></div>
           </div>
-<<<<<<< HEAD
-          </div>
-=======
-          <!-- 拡大縮小バーを下側・＋－ボタンに変更 -->
-          <div
-            style="
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              justify-content: center;
-              margin-top: 12px;
-              position: static;
-              background: rgba(22, 33, 62, 0.7);
-              border-radius: 12px;
-              padding: 8px 0;
-            "
-          >
-            <button
-              id="tile-zoom-out"
-              style="
-                width: 36px;
-                height: 36px;
-                font-size: 1.5em;
-                margin-right: 8px;
-              "
-            >
-              －
-            </button>
-            <input
-              type="range"
-              id="tile-zoom-range"
-              min="30"
-              max="100"
-              value="50"
-              step="1"
-              style="width: 120px; margin: 0 8px"
-            />
-            <button
-              id="tile-zoom-in"
-              style="
-                width: 36px;
-                height: 36px;
-                font-size: 1.5em;
-                margin-left: 8px;
-              "
-            >
-              ＋
-            </button>
-          </div>
         </div>
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
 
         <div id="building-buttons">
           <div>
@@ -164,7 +106,37 @@
             拡大
           </button>
           <div class="cost">必要: 1000</div>
+          <button
+            id="btn-get-money"
+            class="building-btn"
+            style="
+              background: #27ae60;
+              width: 220px;
+              font-size: 1.2em;
+              margin-top: 12px;
+            "
+            data-ja="獲得"
+            data-en="Get Money"
+          >
+            獲得
+          </button>
         </div>
+
+        <button
+          id="btn-reload"
+          style="
+            margin: 10px 0;
+            padding: 8px 24px;
+            font-size: 16px;
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+          "
+        >
+          ページをリロード
+        </button>
       </div>
     </main>
 
@@ -188,14 +160,8 @@
         </a>
         <a href="setting.html" class="nav-item">
           <div class="icon">⚙️</div>
-          <div class="label" data-en="Settings">設定</div>
-<<<<<<< HEAD
-        </a
+          <div class="label" data-en="Settings">設定</div> </a
         ><button
-=======
-        </a>
-        <button
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
           class="nav-item"
           onclick="logout()"
           style="border: none; background: none; color: #bbb"
@@ -206,10 +172,32 @@
       </nav>
     </footer>
 
-<<<<<<< HEAD
-=======
-    <!-- ゲームロジック -->
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
+    <!-- Socket.ioクライアントの読み込み -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // サーバーと接続し、接続・切断時にメッセージを表示
+      document.addEventListener("DOMContentLoaded", function () {
+        const socket = io();
+        socket.on("connect", function () {
+          console.log("Socket.io: サーバーに接続しました");
+        });
+        socket.on("disconnect", function () {
+          console.log("Socket.io: サーバーから切断されました");
+        });
+      });
+    </script>
     <script src="../SCRIPT/game.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const reloadBtn = document.getElementById("btn-reload");
+        if (reloadBtn) {
+          reloadBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            // セッションやログイン状態は維持したままリロード
+            window.location.reload();
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-// alarmEditing.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const settingId = urlParams.get("id"); // URLクエリから ?id= 取得
-
+document.addEventListener("DOMContentLoaded", () => {
   const youtubeCheckbox = document.getElementById("use-youtube");
   const youtubeSection = document.getElementById("youtube-section");
   const defaultSoundSection = document.getElementById("default-sound-section");
 
-  // 初期非表示
   youtubeSection.style.display = "none";
   defaultSoundSection.style.display = "flex";
 
@@ -26,174 +20,107 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // 既存のアラーム情報を取得してフォームに反映
-  if (settingId) {
-    try {
-      const res = await fetch(`/alarm/detail/${settingId}`);
-      const data = await res.json();
-
-      document.querySelector("input[name='alarmTime']").value = data.alarm_time;
-
-      if (data.source_type === 1) {
-        youtubeCheckbox.checked = true;
-        youtubeSection.style.display = "flex";
-        defaultSoundSection.style.display = "none";
-        document.getElementById("youtube-url").value = data.sound_url;
-        document.getElementById("youtube-url").required = true;
-        document.getElementById("sound-a").required = false;
-      } else {
-        youtubeCheckbox.checked = false;
-        youtubeSection.style.display = "none";
-        defaultSoundSection.style.display = "flex";
-        document.getElementById("sound-a").value = data.sound_id;
-        document.getElementById("youtube-url").required = false;
-        document.getElementById("sound-a").required = true;
-      }
-
-      // 曜日チェックを反映
-      data.weekdays.forEach(wd => {
-        const checkbox = document.querySelector(`input[name='weekdays'][value='${weekdayEnToJa(wd)}']`);
-        if (checkbox) checkbox.checked = true;
-      });
-
-    } catch (err) {
-      alert("アラーム情報の取得に失敗しました。");
-      console.error(err);
-    }
-  }
-
-  // 保存処理（PUT）
-  document.getElementById("alarmEditing-form").addEventListener("submit", async function (e) {
+  document.getElementById("alarm-form").addEventListener("submit", async function (e) {
     e.preventDefault();
+    const form = e.target;
+    const alarmTime = form.alarmTime.value;
+    const soundId = form.soundId.value;
+    const youtubeUrl = form.youtubeUrl.value;
+    const weekdays = Array.from(form.querySelectorAll("input[name='weekdays']:checked")).map(cb => cb.value);
 
-    const alarmTime = document.querySelector("input[name='alarmTime']").value;
-    const soundId = document.getElementById("sound-a").value;
-    const youtubeUrl = document.getElementById("youtube-url").value;
-    const weekdays = Array.from(document.querySelectorAll("input[name='weekdays']:checked"))
-                          .map(cb => cb.value);
+    // alert(
+    //   `アラーム登録内容：\n` +
+    //   `時刻: ${alarmTime}\n` +
+    //   `曜日: ${weekdays.length > 0 ? weekdays.join(" ") : "指定なし"}\n` +
+    //   (youtubeCheckbox.checked ? `YouTube URL: ${youtubeUrl}` : `音: ${soundId}`)
+    // );
 
-    try {
-      await fetch(`/alarm/${settingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          alarmTime,
-          soundId,
-          youtubeUrl,
-          weekdays
-        })
-      });
-
-      window.location.href = "alarmConfimation.html";
-    } catch (err) {
-      alert("アラームの更新に失敗しました。");
-      console.error(err);
-      window.location.href = "alarmConfimation.html";
-    }
-  });
-
-  function weekdayEnToJa(wd) {
-    const map = { Mon: "月", Tue: "火", Wed: "水", Thu: "木", Fri: "金", Sat: "土", Sun: "日" };
-    return map[wd] || wd;
-  }
-});
-=======
-// alarmEditing.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const settingId = urlParams.get("id"); // URLクエリから ?id= 取得
-
-  const youtubeCheckbox = document.getElementById("use-youtube");
-  const youtubeSection = document.getElementById("youtube-section");
-  const defaultSoundSection = document.getElementById("default-sound-section");
-
-  // 初期非表示
-  youtubeSection.style.display = "none";
-  defaultSoundSection.style.display = "flex";
-
-  youtubeCheckbox.addEventListener("change", () => {
+    // 🔊 ここで音を鳴らす
     if (youtubeCheckbox.checked) {
-      youtubeSection.style.display = "flex";
-      defaultSoundSection.style.display = "none";
-      document.getElementById("youtube-url").required = true;
-      document.getElementById("sound-a").required = false;
-    } else {
-      youtubeSection.style.display = "none";
-      defaultSoundSection.style.display = "flex";
-      document.getElementById("youtube-url").required = false;
-      document.getElementById("sound-a").required = true;
-    }
-  });
-
-  // 既存のアラーム情報を取得してフォームに反映
-  if (settingId) {
-    try {
-      const res = await fetch(`/alarm/detail/${settingId}`);
-      const data = await res.json();
-
-      document.querySelector("input[name='alarmTime']").value = data.alarm_time;
-
-      if (data.source_type === 1) {
-        youtubeCheckbox.checked = true;
-        youtubeSection.style.display = "flex";
-        defaultSoundSection.style.display = "none";
-        document.getElementById("youtube-url").value = data.sound_url;
-        document.getElementById("youtube-url").required = true;
-        document.getElementById("sound-a").required = false;
+      const videoId = extractVideoId(youtubeUrl);
+      if (videoId) {
+        playYouTube(videoId);
       } else {
-        youtubeCheckbox.checked = false;
-        youtubeSection.style.display = "none";
-        defaultSoundSection.style.display = "flex";
-        document.getElementById("sound-a").value = data.sound_id;
-        document.getElementById("youtube-url").required = false;
-        document.getElementById("sound-a").required = true;
+        alert("YouTubeのURLが正しくありません。");
       }
-
-      // 曜日チェックを反映
-      data.weekdays.forEach(wd => {
-        const checkbox = document.querySelector(`input[name='weekdays'][value='${weekdayEnToJa(wd)}']`);
-        if (checkbox) checkbox.checked = true;
-      });
-
-    } catch (err) {
-      alert("アラーム情報の取得に失敗しました。");
-      console.error(err);
+    } else {
+      playDefaultSound(soundId);
     }
-  }
 
-  // 保存処理（PUT）
-  document.getElementById("alarmEditing-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const alarmTime = document.querySelector("input[name='alarmTime']").value;
-    const soundId = document.getElementById("sound-a").value;
-    const youtubeUrl = document.getElementById("youtube-url").value;
-    const weekdays = Array.from(document.querySelectorAll("input[name='weekdays']:checked"))
-                          .map(cb => cb.value);
-
+    // --- ここから保存API呼び出し ---
     try {
-      await fetch(`/alarm/${settingId}`, {
-        method: "PUT",
+      const userId = localStorage.getItem("user_id");
+      const res = await fetch("/alarm", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          alarmTime,
+          userId,
           soundId,
+          alarmTime,
           youtubeUrl,
           weekdays
         })
       });
-
+      // 成功・失敗に関わらず遷移
       window.location.href = "alarmConfimation.html";
     } catch (err) {
-      alert("アラームの更新に失敗しました。");
-      console.error(err);
+      // 通信エラー時も遷移
       window.location.href = "alarmConfimation.html";
     }
+    // --- ここまで保存API呼び出し ---
+
+    // フォームリセット等は画面遷移するので不要
   });
 
-  function weekdayEnToJa(wd) {
-    const map = { Mon: "月", Tue: "火", Wed: "水", Thu: "木", Fri: "金", Sat: "土", Sun: "日" };
-    return map[wd] || wd;
+  function extractVideoId(url) {
+    // YouTubeのURLから動画IDを抽出（短縮URLと通常URL両対応）
+    const match = url.match(
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]+)/i
+    );
+    return match ? match[1] : null;
+  }
+
+  function playYouTube(videoId) {
+    // 既存のiframeがあれば削除（多重再生防止）
+    const oldIframe = document.getElementById("alarm-youtube-iframe");
+    if (oldIframe) oldIframe.remove();
+
+    const iframe = document.createElement("iframe");
+    iframe.id = "alarm-youtube-iframe";
+    iframe.width = "1";
+    iframe.height = "1";
+    iframe.style = "position:absolute; left:-9999px;";
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
+    iframe.allow = "autoplay";
+    iframe.setAttribute("allowfullscreen", "");
+    document.body.appendChild(iframe);
+  }
+
+  function playDefaultSound(id) {
+    let audioSrc = "";
+    switch (id) {
+      case "picoon":
+        audioSrc = "../SOUND/picoon.mp3";
+        break;
+      case "bell":
+        audioSrc = "../SOUND/bell.mp3";
+        break;
+      case "bird":
+        audioSrc = "../SOUND/bird.mp3";
+        break;
+      case "eva":
+        audioSrc = "../SOUND/eva.mp3";
+        break;
+      default:
+        alert("音声が選択されていません。");
+        return;
+    }
+
+    const audio = new Audio(audioSrc);
+    audio.loop = true;
+    audio.play();
   }
 });
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
+    audio.loop = true;
+    audio.play();
+

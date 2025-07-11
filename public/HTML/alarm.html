@@ -1,103 +1,127 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>目覚ましティ - アラーム設定</title>
-  <link rel="stylesheet" href="../CSS/header.css" />
-  <link rel="stylesheet" href="../CSS/alarm.css" />
-  <link rel="stylesheet" href="../CSS/footer.css" />
-</head>
-<body>
-<<<<<<< HEAD
-  <header style="padding: 35px 20px;">
-=======
-  <header>
->>>>>>> a34aa9bbd2c57d00de2652b37fd1b460dabdb918
-    <h1 class="header-title">アラーム設定</h1>
-    <div class="header-right"></div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目覚ましティ - アラーム設定</title>
+    <link rel="stylesheet" href="../CSS/header.css" />
+    <link rel="stylesheet" href="../CSS/alarm.css" />
+    <link rel="stylesheet" href="../CSS/footer.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="header-title">アラーム設定</h1>
+      <div class="header-right"></div>
+    </header>
 
+    <div class="main-content">
+      <h1 class="game-title">アラーム設定</h1>
 
-  <div class="main-content">
-    <h1 class="game-title">アラーム設定</h1>
-
-    <form id="alarm-form">
-      <div class="alarm-panel">
-        <div class="alarm-item">
-          <div class="alarm-time">
-            <input type="time" name="alarmTime" value="07:00" required />
-          </div>
-
-          <div class="alarm-settings-group">
-            <div class="repeat-days">
-              <label><input type="checkbox" name="weekdays" value="月" />月</label>
-              <label><input type="checkbox" name="weekdays" value="火" />火</label>
-              <label><input type="checkbox" name="weekdays" value="水" />水</label>
-              <label><input type="checkbox" name="weekdays" value="木" />木</label>
-              <label><input type="checkbox" name="weekdays" value="金" />金</label>
-              <label><input type="checkbox" name="weekdays" value="土" />土</label>
-              <label><input type="checkbox" name="weekdays" value="日" />日</label>
+      <form id="alarm-form">
+        <div class="alarm-panel">
+          <div class="alarm-item">
+            <div class="alarm-time">
+              <input type="time" name="alarmTime" value="07:00" required />
             </div>
 
-            <div class="sound-option">
-              <label><input type="checkbox" id="use-youtube" />YouTubeの音を使う</label>
-            </div>
+            <div class="alarm-settings-group">
+              <div class="repeat-days">
+                <label
+                  ><input type="checkbox" name="weekdays" value="月" />月</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="火" />火</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="水" />水</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="木" />木</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="金" />金</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="土" />土</label
+                >
+                <label
+                  ><input type="checkbox" name="weekdays" value="日" />日</label
+                >
+              </div>
 
-            <div class="youtube-section" id="youtube-section">
-              <label for="youtube-url">YouTubeアラームURL</label>
-              <input type="url" id="youtube-url" name="youtubeUrl" placeholder="URLを入力してください" />
-            </div>
+              <div class="sound-option">
+                <label
+                  ><input
+                    type="checkbox"
+                    id="use-youtube"
+                  />YouTubeの音を使う</label
+                >
+              </div>
 
-            <div class="default-sound-section" id="default-sound-section">
-              <label for="sound-a">音</label>
-              <select id="sound-a" name="soundId" required>
-                <option value="1">ピコーン</option>
-                <option value="2">ベル</option>
-                <option value="3">鳥のさえずり</option>
-                <option value="4">エヴァ予告</option>
-              </select>
+              <div class="youtube-section" id="youtube-section">
+                <label for="youtube-url">YouTubeアラームURL</label>
+                <input
+                  type="url"
+                  id="youtube-url"
+                  name="youtubeUrl"
+                  placeholder="URLを入力してください"
+                />
+              </div>
+
+              <div class="default-sound-section" id="default-sound-section">
+                <label for="sound-a">音</label>
+                <select id="sound-a" name="soundId" required>
+                  <option value="1">ピコーン</option>
+                  <option value="2">ベル</option>
+                  <option value="3">鳥のさえずり</option>
+                  <option value="4">エヴァ予告</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="button-group">
-        <button type="submit" class="add-alarm-button">アラームを保存</button>
-        <a href="../HTML/alarmConfimation.html" class="home">一覧に戻る</a>
-      </div>
-    </form>
-  </div>
+        <div class="button-group">
+          <button type="submit" class="add-alarm-button">アラームを保存</button>
+          <a href="../HTML/alarmConfimation.html" class="home">一覧に戻る</a>
+        </div>
+      </form>
+    </div>
 
-  <footer>
-  <nav class="bottom-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="../HTML/home.html" class="nav-item active" aria-current="page">
-      <div class="icon">🏠</div>
-      <div class="label">ホーム</div>
-    </a>
-    <a href="../HTML/game.html" class="nav-item">
-      <div class="icon">📊</div>
-      <div class="label">育成画面</div>
-    </a>
-    <a href="../HTML/alarmConfimation.html" class="nav-item">
-      <div class="icon">⏰</div>
-      <div class="label">目覚まし設定</div>
-    </a>
-    <a href="setting.html" class="nav-item">
-      <div class="icon">⚙️</div>
-      <div class="label">設定</div>
-    </a>
-    <button class="nav-item" onclick="logout()" style="border: none; background: none; color: #bbb;">
-      <div class="icon">🔓</div>
-      <div class="label">ログアウト</div>
-    </button>
-  </nav>
-  </footer>
+    <footer>
+      <nav
+        class="bottom-nav"
+        role="navigation"
+        aria-label="メインナビゲーション"
+      >
+        <a href="../HTML/home.html" class="nav-item active" aria-current="page">
+          <div class="icon">🏠</div>
+          <div class="label">ホーム</div>
+        </a>
+        <a href="../HTML/game.html" class="nav-item">
+          <div class="icon">📊</div>
+          <div class="label">育成画面</div>
+        </a>
+        <a href="../HTML/alarmConfimation.html" class="nav-item">
+          <div class="icon">⏰</div>
+          <div class="label">目覚まし設定</div>
+        </a>
+        <a href="setting.html" class="nav-item">
+          <div class="icon">⚙️</div>
+          <div class="label">設定</div>
+        </a>
+        <button
+          class="nav-item"
+          onclick="logout()"
+          style="border: none; background: none; color: #bbb"
+        >
+          <div class="icon">🔓</div>
+          <div class="label">ログアウト</div>
+        </button>
+      </nav>
+    </footer>
 
-      <script src="../SCRIPT/alarmSetting.js"></script>
-      <script src="../SCRIPT/commonSetting.js"></script>
-
-
-</body>
-</html>
+    <script src="../SCRIPT/alarmSetting.js"></script>
+    <script src="../SCRIPT/commonSetting.js"></script>
+  </body>
 </html>
