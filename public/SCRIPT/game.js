@@ -9,22 +9,59 @@
       transition: background-color 0.5s ease;
     }
     #stats {
-      margin-bottom: 10px;
+      margin-bottom: 18px;
       font-size: 18px;
+      position: relative;
+      z-index: 10;
+      background: rgba(255,255,255,0.85);
+      display: block;
+      padding: 4px 18px;
+      border-radius: 8px;
+      margin-top: 24px;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
+      text-align: center;
     }
     #grid {
       display: grid;
       gap: 2px;
       transform-origin: 0 0;
+      background: #111;
+      border: 6px solid #111;
+      border-radius: 14px;
+      box-sizing: content-box;
+      padding: 7px;
+      margin: 80px auto 0 auto;
+      width: max-content;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* ボタン類の重なり防止 */
+    .main-buttons {
+      margin-top: 0px;
+      margin-bottom: 24px;
+      z-index: 10;
+      position: relative;
+      background: rgba(255,255,255,0.85);
+      display: block;
+      border-radius: 8px;
+      padding: 6px 16px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
     }
     .tile {
       width: 50px;
-      height: 50px;
+      height: 60px;
       background-color: #4caf50;
       background-size: cover;
-      border: 1px solid #333;
+      border: 1.2px solid #222;
       cursor: pointer;
       transition: transform 0.1s;
+      box-sizing: border-box;
     }
     .tile:hover {
       transform: scale(1.1);
@@ -74,7 +111,7 @@ window.addEventListener('DOMContentLoaded', async function () {
     gov: 3
   };
 
-  const fixedTileSize = 50;
+  const fixedTileSize = 60;
   let currentRows = 11;
   let currentCols = 11;
   const gap = 2; // CSSのgap値と合わせる
@@ -102,7 +139,7 @@ window.addEventListener('DOMContentLoaded', async function () {
       }
     }
     grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, 50px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, 60px)`;
   }
 
   // --- 配置データをサーバーから取得して復元 ---
@@ -174,10 +211,21 @@ window.addEventListener('DOMContentLoaded', async function () {
     return;
   }
   const currentUserId = userId;
-  // const currentCityId = 1; // 必要に応じてユーザーごとに取得
+
+  // citysテーブルにcity_id（user_id）がなければ新規登録
+  try {
+    await fetch('/api/ensure_city', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: currentUserId })
+    });
+  } catch (e) {
+    alert('都市データの初期化に失敗しました');
+    return;
+  }
 
   createGrid(currentRows, currentCols);
-  await loadBuildingsFromDatabase(currentCityId);
+  await loadBuildingsFromDatabase(currentUserId); // city_id = user_id
   await loadUserMoney(currentUserId);
 
   let selectedBuilding = "house";
@@ -209,8 +257,10 @@ window.addEventListener('DOMContentLoaded', async function () {
       tile.classList.contains("tile-gray") ||
       tile.classList.contains("building-house") ||
       tile.classList.contains("building-factory") ||
-      tile.classList.contains("building-gov")
+      tile.classList.contains("building-gov") ||
+      tile.querySelector('img') // 既に建物画像がある場合も設置不可
     ) {
+      alert("設置できません");
       return;
     }
 
@@ -247,7 +297,7 @@ window.addEventListener('DOMContentLoaded', async function () {
       const building_id = buildingTypeToId[buildingType];
 
       if (building_id) {
-        saveBuildingToDatabase(currentCityId, building_id, x_coordinate, y_coordinate);
+        saveBuildingToDatabase(currentUserId, building_id, x_coordinate, y_coordinate);
       } else {
         console.error("Unknown building type or missing building_id mapping:", buildingType);
       }
@@ -267,7 +317,7 @@ window.addEventListener('DOMContentLoaded', async function () {
   function saveBuildingToDatabase(cityId, buildingId, x, y) {
     // 実際には、サーバーサイドのエンドポイントにデータを送信します。
     // 例: fetch APIを使用
-    fetch('/api/save_building', { // Node.js/Express用のエンドポイントに修正
+    fetch('/api/save_building', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -278,6 +328,7 @@ window.addEventListener('DOMContentLoaded', async function () {
             x_coordinate: x,
             y_coordinate: y
         }),
+        credentials: 'include'
     })
     .then(response => {
         // HTTPステータスが200番台以外の場合もエラーとして処理
@@ -305,9 +356,9 @@ window.addEventListener('DOMContentLoaded', async function () {
   }
   // --- ここまで ---
 
-  let tileSize = 30; // 初期値を最小値に
-  const minTileSize = 30;
-  const maxTileSize = 100;
+let tileSize = 60; // 初期値を小さめに
+const minTileSize = 30;
+const maxTileSize = 100;
 
   function updateTileSize(size) {
     grid.style.gridTemplateColumns = `repeat(${currentCols}, ${size}px)`;
@@ -377,7 +428,7 @@ window.addEventListener('DOMContentLoaded', async function () {
 
   const btnSpecial = document.getElementById("btn-special");
   if (btnSpecial) {
-    btnSpecial.addEventListener("click", function () {
+    btnSpecial.addEventListener("click", async function () {
       const expandCost = 1000;
       if (money < expandCost) {
         alert("お金が足りません！");
@@ -395,7 +446,7 @@ window.addEventListener('DOMContentLoaded', async function () {
           if (col > maxCol) maxCol = col;
         }
       });
-      // 周囲1マス拡大
+      // 周囲1マス拡大（1×1増やす）
       minRow = Math.max(0, minRow - 1);
       maxRow = Math.min(currentRows - 1, maxRow + 1);
       minCol = Math.max(0, minCol - 1);
@@ -410,6 +461,17 @@ window.addEventListener('DOMContentLoaded', async function () {
           tile.classList.remove("tile-gray");
         }
       });
+      // city_rankを1増やすAPIリクエスト
+      try {
+        await fetch('/api/increment_city_rank', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: currentUserId }),
+          credentials: 'include'
+        });
+      } catch (e) {
+        console.error('city_rankの更新に失敗:', e);
+      }
       money -= expandCost;
       updateStats();
       updateUserMoneyOnServer(currentUserId, money);
@@ -432,6 +494,8 @@ window.addEventListener('DOMContentLoaded', async function () {
     btnGetMoney.addEventListener("click", function () {
       money += 1000;
       updateStats();
+      // サーバーに所持金を保存
+      updateUserMoneyOnServer(currentUserId, money);
     });
   }
 
@@ -466,6 +530,20 @@ function setBackgroundColorByTime() {
 }
 
 window.addEventListener('DOMContentLoaded', setBackgroundColorByTime);
+
+// --- 所持金更新用の関数 ---
+async function updateUserMoneyOnServer(userId, newMoney) {
+  try {
+    await fetch('/api/update_money', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, money: newMoney }),
+      credentials: 'include'
+    });
+  } catch (e) {
+    console.error('所持金の更新に失敗:', e);
+  }
+}
 
 // テスト用: 成功メッセージを画面に表示する関数
 function showSaveSuccessMessage(msg) {
