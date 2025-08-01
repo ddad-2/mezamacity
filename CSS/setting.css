@@ -1,0 +1,141 @@
+/* リセット */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 背景・フォント・全体レイアウト */
+body {
+  background: linear-gradient(#1a1a2e, #16213e);
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px 80px;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid #00f0ff;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 25px #00f0ff;
+}
+
+.game-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.setting-group {
+  margin-bottom: 20px;
+  color: #00f0ff;
+}
+
+.setting-group label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  background-color: #111;
+  color: #fff;
+  border-radius: 10px;
+  font-family: 'Press Start 2P', cursive;
+  border: none;
+  font-size: 0.9em;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary-button {
+  background-color: #3b45f7;
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: #2d35c6;
+}
+
+.danger-button {
+  background-color: #f51a1a;
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: #c91414;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #222;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 15px #00f0ff;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.modal-content button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}

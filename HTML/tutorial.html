@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>街の名前設定チュートリアル</title>
+    <link rel="stylesheet" href="../CSS/game.css" />
+    <link rel="stylesheet" href="../CSS/header.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="header-title">街の名前を決めましょう！</h1>
+    </header>
+    <main style="text-align: center; margin-top: 40px">
+      <div
+        style="
+          background: #fff;
+          border-radius: 12px;
+          display: inline-block;
+          padding: 32px 24px;
+          box-shadow: 0 2px 8px #ccc;
+          max-width: 600px;
+        "
+      >
+        <h2>🏙️ めざまシティへようこそ！</h2>
+        <div style="text-align: left; margin: 24px 0; line-height: 1.8">
+          <h3 style="color: #2196f3; margin-bottom: 16px">📋 ゲームの基本</h3>
+          <ul style="margin-left: 20px">
+            <li><strong>目標</strong>: あなただけの街を発展させましょう</li>
+            <li><strong>建物</strong>: 住宅、工場、政府庁舎を建設できます</li>
+            <li><strong>資金</strong>: 建物の建設にはお金が必要です</li>
+            <li><strong>人口</strong>: 住宅を建設すると人口が増加します</li>
+          </ul>
+
+          <h3 style="color: #4caf50; margin: 24px 0 16px 0">🏗️ 建設のコツ</h3>
+          <ul style="margin-left: 20px">
+            <li>最初は住宅を多く建設して人口を増やしましょう</li>
+            <li>工場で経済を発展させることができます</li>
+            <li>政府庁舎は街の威信を高めます</li>
+            <li>街を拡張するには1000円が必要です</li>
+          </ul>
+
+        </div>
+
+        <div style="margin-top: 32px">
+          <button
+            id="start-naming"
+            style="
+              font-size: 1.2em;
+              padding: 12px 32px;
+              background: #2196f3;
+              color: #fff;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              margin-right: 16px;
+              transition: background-color 0.3s;
+            "
+          >
+            街の名前を決める
+          </button>
+
+          <button
+            id="skip-tutorial"
+            style="
+              font-size: 1.1em;
+              padding: 12px 24px;
+              background: #757575;
+              color: #fff;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background-color 0.3s;
+            "
+          >
+            後で設定する
+          </button>
+        </div>
+
+        <div
+          id="tutorial-message"
+          style="margin-top: 18px; color: #666; font-size: 0.9em"
+        >
+          街の名前はいつでも変更できます
+        </div>
+      </div>
+    </main>
+    <script>
+      // ============================
+      // 🌞 時間帯で背景色を変える処理
+      // ============================
+      function setBackgroundColorByTime() {
+        const hour = new Date().getHours();
+        let bgColor;
+
+        if (hour >= 5 && hour < 10) {
+          bgColor = "#FFFAE3"; // 朝
+        } else if (hour >= 10 && hour < 17) {
+          bgColor = "#E3F2FD"; // 昼
+        } else if (hour >= 17 && hour < 19) {
+          bgColor = "#FFE0B2"; // 夕方
+        } else {
+          bgColor = "#263238"; // 夜
+        }
+
+        document.body.style.setProperty(
+          "background-color",
+          bgColor,
+          "important"
+        );
+      }
+
+      // --- ログインユーザーIDをサーバーから取得 ---
+      async function getCurrentUserId() {
+        try {
+          const res = await fetch("/api/get_current_user");
+          const data = await res.json();
+          if (data.success && data.user_id) {
+            return data.user_id;
+          }
+        } catch (e) {
+          console.error("ユーザーIDの取得に失敗:", e);
+        }
+        return null;
+      }
+
+      // --- 初期化処理 ---
+      let currentUserId = null;
+
+      window.addEventListener("DOMContentLoaded", async function () {
+        // 背景色設定
+        setBackgroundColorByTime();
+
+        // ユーザーID取得
+        currentUserId = await getCurrentUserId();
+        console.log("チュートリアル - 取得したユーザーID:", currentUserId);
+
+        if (!currentUserId) {
+          alert("ログイン情報が取得できません。再ログインしてください。");
+          window.location.href = "login.html";
+          return;
+        }
+
+        // 都市データが存在するか確認
+        try {
+          await fetch("/api/ensure_city", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: currentUserId }),
+          });
+        } catch (e) {
+          console.error("都市データの初期化に失敗:", e);
+        }
+
+        // ボタンイベントの設定
+        document
+          .getElementById("start-naming")
+          .addEventListener("click", function () {
+            window.location.href = "city-name-setting.html";
+          });
+
+        document
+          .getElementById("skip-tutorial")
+          .addEventListener("click", function () {
+            if (
+              confirm(
+                "街の名前を設定せずにゲームを開始しますか？\n（後から変更できます）"
+              )
+            ) {
+              window.location.href = "game.html";
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

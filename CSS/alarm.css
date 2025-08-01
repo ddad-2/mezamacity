@@ -1,0 +1,217 @@
+/* リセット */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#1a1a2e, #16213e);
+      font-family: 'Press Start 2P', cursive, monospace, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(to right, #4a90e2, #6a5acd);
+  color: #fff;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+}
+
+header a.home-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9em;
+  min-width: max-content; /* ✅ 改善ポイント */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.2em;
+  text-align: center;
+  flex-grow: 1;
+  white-space: nowrap;
+}
+
+header span {
+  width: auto; /* ✅ または min-width: 90px; */
+}
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2em;
+      flex: 1;
+      text-align: center;
+    }
+    header a.home-btn {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9em;
+      width: 90px;
+    }
+    header span {
+      width: 90px;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 70px 20px 20px 20px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .game-title {
+      text-align: center;
+      margin: 10px 0 20px 0;
+      font-size: 1.8rem;
+    }
+    form#alarm-form {
+      width: 100%;
+    }
+    .alarm-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+    .alarm-item {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #00f0ff;
+      box-shadow: 0 0 10px #00f0ff33;
+    }
+    .alarm-time input[type='time'] {
+      width: 100%;
+      font-size: 1.5rem;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #686868;
+      color: #fff;
+      border: none;
+      font-family: 'Press Start 2P', cursive;
+      margin-bottom: 10px;
+    }
+    .alarm-settings-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      width: 100%;
+    }
+    .repeat-days {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      width: 100%;
+    }
+    .repeat-days label {
+      background-color: #333;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .repeat-days input[type='checkbox'] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 18px;
+      height: 18px;
+      background-color: #1a1a2e;
+      border: 2px solid #00f0ff;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+    .repeat-days input[type='checkbox']:checked {
+      background-color: #1a1a2e;
+      border-color: #00f0ff;
+    }
+    .repeat-days input[type='checkbox']:checked::after {
+      content: '✔';
+      color: white;
+      font-size: 12px;
+      position: absolute;
+      top: -1px;
+      left: 2px;
+      pointer-events: none;
+    }
+    .sound-option label {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .youtube-section,
+    .default-sound-section {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+    }
+    .youtube-section input,
+    .default-sound-section select {
+      padding: 8px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Press Start 2P', cursive;
+    }
+    .default-sound-section label {
+      margin-bottom: 5px;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button.add-alarm-button,
+    a.home {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      background-color: #00ff88;
+      border: none;
+      color: #000;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      box-sizing: border-box;
+    }
+    button.add-alarm-button:hover,
+    a.home:hover {
+      background-color: #00cc66;
+    }

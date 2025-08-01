@@ -1,0 +1,56 @@
+/* リセット（すべての余白とボックスサイズを統一） */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ヘッダー本体の設定 */
+header {
+  width: 100%;
+  padding: 35px 20px;
+  background: linear-gradient(to right, #4a90e2, #6a5acd);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 1.6rem;           /* フォントサイズを少し大きく */
+  font-weight: 700;            /* 太字に（boldは700に相当） */
+
+}
+
+/* 中央見出しの絶対中央配置 */
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 2.5rem;
+  white-space: nowrap;
+  font-weight: 1000;
+}
+
+/* ヘッダー内要素の余白を除去 */
+header a,
+header span {
+  margin: 0;
+  padding: 0;
+}
+
+/* ホームに戻るボタン調整 */
+.home-btn {
+  display: block;               /* インラインからブロックに */
+  width: 140px;                 /* 左右バランスのための固定幅 */
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+  line-height: 1;               /* 行の高さによる余白防止 */
+  text-decoration: none;
+}

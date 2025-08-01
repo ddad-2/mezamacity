@@ -1,0 +1,60 @@
+/* フッターと重ならないようにするための構造 */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-wrapper {
+  flex-grow: 1;
+  padding-bottom: 80px; /* ← フッターの高さ分スペース */
+}
+
+/* フッター全体 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #222;
+  display: flex;
+  justify-content: space-between; /* ← 均等配置用 */
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.8);
+  z-index: 1000;
+}
+
+/* 共通ナビ項目（aもbuttonも） */
+.bottom-nav a.nav-item,
+.bottom-nav button.nav-item {
+  flex: 1; /* 均等な幅にする */
+  text-align: center;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* アイコン部分 */
+.nav-item .icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+/* アクティブ状態とホバー効果 */
+.bottom-nav .nav-item:hover,
+.bottom-nav .nav-item:focus {
+  color: #ffcc00 !important;
+}
+
+
+

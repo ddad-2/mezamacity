@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>アラーム一覧</title>
+    <link rel="stylesheet" href="../CSS/header.css" />
+    <link rel="stylesheet" href="../CSS/alarmConfimation.css" />
+    <link rel="stylesheet" href="../CSS/footer.css" />
+  </head>
+  <body>
+    <header>
+      <h1 style="margin: 0; font-size: 1.2em; text-align: center; flex: 1">
+        アラーム一覧
+      </h1>
+      <div style="width: 90px"></div>
+      <!-- ダミーの右側スペース -->
+    </header>
+
+    <main>
+      <div class="list-container">
+        <h1 class="page-title">アラーム一覧</h1>
+        <!-- アラームカードはJSで動的に追加されます -->
+      </div>
+
+      <div class="add-alarm-wrapper">
+        <a href="alarm.html">
+          <button class="add-btn">＋ アラームを追加</button>
+        </a>
+      </div>
+
+      <!-- 削除確認モーダル -->
+      <div id="alarm-delete-modal" class="modal hidden">
+        <div class="modal-content">
+          <p>このアラームを削除してもよろしいですか？</p>
+          <button id="alarmConfirmDelete" class="yes-button">はい</button>
+          <button id="alarmCancelDelete" class="no-button">キャンセル</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <nav
+        class="bottom-nav"
+        role="navigation"
+        aria-label="メインナビゲーション"
+      >
+        <a href="../HTML/home.html" class="nav-item active" aria-current="page">
+          <div class="icon">🏠</div>
+          <div class="label">ホーム</div>
+        </a>
+        <a href="../HTML/game.html" class="nav-item">
+          <div class="icon">📊</div>
+          <div class="label">育成画面</div>
+        </a>
+        <a href="../HTML/alarmConfimation.html" class="nav-item">
+          <div class="icon">⏰</div>
+          <div class="label">目覚まし設定</div>
+        </a>
+        <a href="setting.html" class="nav-item">
+          <div class="icon">⚙️</div>
+          <div class="label">設定</div>
+        </a>
+        <button
+          class="nav-item"
+          onclick="logout()"
+          style="border: none; background: none; color: #bbb"
+        >
+          <div class="icon">🔓</div>
+          <div class="label">ログアウト</div>
+        </button>
+      </nav>
+    </footer>
+
+    <script src="../SCRIPT/alarmConfirmation.js"></script>
+    <script src="../SCRIPT/alarm_show.js"></script>
+    <script src="../SCRIPT/commonSetting.js"></script>
+
+  </body>
+</html>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>目覚ましティ - 新規登録</title>
+  <link rel="stylesheet" href="../CSS/login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1 class="game-title">目覚ましティ</h1>
+    <div class="login-panel">
+      <h2>新規登録</h2>
+      <form id="register-form" method="POST">
+        <label for="username">ユーザー名</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="confirm-password">パスワード（確認）</label>
+        <input type="password" id="confirm-password" name="confirm-password" required />
+
+        <button type="submit">登録する</button>
+      </form>
+      <!-- error message -->
+       <div id="msg-box" class="msg-box"></div>
+      <div class="signup-section">
+        <p>アカウントをお持ちの方は</p>
+        <a href="login.html" class="signup-button">ログインはこちら</a>
+      </div>
+    </div>
+  </div>
+  <script src="../SCRIPT/register-client.js"></script>
+  <script src="../SCRIPT/commonSetting.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+/* リセット */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+/* ダークモード */
+body[data-theme="dark"] {
+  background: linear-gradient(#16213e, #1a1a2e);
+  color: #fff;
+}
+
+/* ライトモード */
+body[data-theme="light"] {
+  background: #fff;
+  color: #000;
+}
+
+/* ヘッダーとメイン縦並び */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+}
+
+main {
+  padding: 0;
+  flex-grow: 1;
+}
+
+/* メインコンテンツ中央寄せ */
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+/* ステータス表示 */
+#stats {
+  padding: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* グリッド表示 */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(5, 50px);
+  gap: 0;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* マスのスタイル */
+.tile {
+  width: 50px;
+  height: 50px;
+  background-color: #4caf50;
+  background-size: cover;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.tile:hover {
+  transform: scale(1.1);
+}
+
+/* 灰色タイル */
+.tile-gray {
+  background-color: #888 !important;
+  opacity: 0.7;
+}
+
+/* 建物ボタンエリア */
+#building-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px 0;
+}
+
+#building-buttons > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ボタン本体 */
+.building-btn {
+  font-size: 1.2em;
+  padding: 18px 36px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+  outline: none;
+  box-shadow: none;
+  transition: outline 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+/* 選択中のボタン */
+.building-btn.active,
+.building-btn:hover {
+  outline: 4px solid #fff;
+  box-shadow: 0 0 16px 4px #fff, 0 0 8px 2px #f5a623;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* 建物コスト表示 */
+#building-buttons .cost {
+  color: inherit;
+  font-size: 0.95em;
+  margin-top: 4px;
+}
+
+#grid-fixed-wrapper {
+  width: 400px;
+  height: 400px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
